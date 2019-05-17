@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-music-store
+    restart: always
+    environment:
+      MYSQL_DATABASE: musicstore_db
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: project
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+    networks:
+      - musicstore-network
+
+  music-store:
+    image: beblue/music-store-api
+    container_name: spring-music-store
+    restart: always
+    volumes:
+      - ./wait-for.sh:/root/wait-for.sh
+    ports:
+      - 8080:8080I
+    depends_on:
+      - mysql
+    # TODO - Deveria customizar o wait-for para aguardar a inicialização do
+    # mysql por completo.
+    command: sh -c '/root/wait-for.sh mysql:3306'
+    networks:
+      - musicstore-network
+
+networks:
+  musicstore-network:
+    driver: bridge

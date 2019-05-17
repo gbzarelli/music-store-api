@@ -1,0 +1,33 @@
+# Custom properties
+
+application:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@
+  environment: production
+
+---
+
+# Server Properties
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/musicstore_db
+    username: project
+    password: password
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  flyway:
+    url: jdbc:mysql://localhost:3306/musicstore_db
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    user: project
+    password: password
