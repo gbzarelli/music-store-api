@@ -5,28 +5,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = GenreEntity.TABLE_NAME)
-public class GenreEntity {
-    static final String TABLE_NAME = "genres_tbl";
+@Entity(name = DiscEntity.TABLE_NAME)
+public class DiscEntity {
+    static final String TABLE_NAME = "discs_tbl";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 }

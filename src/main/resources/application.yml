@@ -1,33 +1,37 @@
+## -- DEVELOPMENT / DEFAULT APPLICATION --
+
 # Custom properties
 
 application:
   name: @project.name@
   description: @project.description@
   version: @project.version@
-  environment: production
+  environment: dev
 
----
+spotify:
+  client:
+    id: 1228515c3a654087b2a33907226e09e9
+    secret: c370e93002bc43fbaf64a6f2c582d086
 
 # Server Properties
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/musicstore_db
-    username: project
-    password: password
+    url: jdbc:h2:file:~/musicstore_db
+    username: root
+    password: root
 
   jpa:
-    generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
         format_sql: true
 
   flyway:
-    url: jdbc:mysql://localhost:3306/musicstore_db
+    url: jdbc:h2:file:~/musicstore_db
+    user: root
+    password: root
     baseline-on-migrate: true
     validate-on-migrate: false
-    user: project
-    password: password

@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping
     public String index() {
-        return "Hello World";
+        return getIndexMessage();
+    }
+
+    private String getIndexMessage() {
+        return "Welcome to the Music Store API";
     }
 
 }

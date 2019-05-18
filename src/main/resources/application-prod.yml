@@ -1,0 +1,15 @@
+## -- PRODUCTION APPLICATION --
+
+application:
+  environment: prod
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/musicstore_db
+    username: project
+    password: password
+
+  flyway:
+    url: jdbc:mysql://mysql:3306/musicstore_db
+    user: project
+    password: password
