@@ -23,7 +23,7 @@ services:
     volumes:
       - ./wait-for.sh:/root/wait-for.sh
     ports:
-      - 8080:8080I
+      - 8080:8080
     depends_on:
       - mysql
     # TODO - Deveria customizar o wait-for para aguardar a inicialização do
