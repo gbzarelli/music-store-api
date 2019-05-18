@@ -1,6 +1,6 @@
 CREATE TABLE genre_tbl
 (
-    id   bigint(20)   NOT NULL AUTO_INCREMENT,
+    id   int(20)   NOT NULL AUTO_INCREMENT,
     name varchar(100) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY UK_name (name)
@@ -12,14 +12,13 @@ VALUES (1,'POP'),(2,'MPB'),(3,'CLASSIC'),(4,'ROCK');
 
 CREATE TABLE genre_cashback_tbl
 (
-    id       bigint(20)        NOT NULL AUTO_INCREMENT,
+    id       int(20)        NOT NULL AUTO_INCREMENT,
     weekday  int               NOT NULL,
-    cashback int               not null,
-    id_genre int               not null,
+    cashback int               NOT NULL,
+    id_genre int               NOT NULL,
     enable   tinyint default 1 NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY UK_weekday (weekday),
-    FOREIGN KEY FK_id_genre (id_genre) REFERENCES genre_tbl (id)
+    CONSTRAINT FK_id_genre FOREIGN KEY (id_genre) REFERENCES genre_tbl(id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
