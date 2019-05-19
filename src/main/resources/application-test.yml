@@ -1,20 +1,13 @@
 ## -- TESTS APPLICATION --
+debug: true
 
 # Custom properties
-
 application:
   environment: test
 
----
 # Server Properties
 
 spring:
 
   main:
     allow-bean-definition-overriding: true
-
-  datasource:
-    url: jdbc:h2:mem:musicstore_db
-
-  flyway:
-    url: jdbc:h2:mem:musicstore_db

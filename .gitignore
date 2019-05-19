@@ -17,6 +17,9 @@
 *.ipr
 .attach_*
 
+### H2 Database ###
+*.db
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

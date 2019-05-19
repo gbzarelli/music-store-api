@@ -1,4 +1,4 @@
-## -- DEVELOPMENT / DEFAULT APPLICATION --
+## -- DEFAULT / DEVELOPMENT APPLICATION --
 
 # Custom properties
 
@@ -6,7 +6,7 @@ application:
   name: @project.name@
   description: @project.description@
   version: @project.version@
-  environment: dev
+  environment: default
 
 spotify:
   client:
@@ -17,7 +17,7 @@ spotify:
 
 spring:
   datasource:
-    url: jdbc:h2:file:~/musicstore_db
+    url: jdbc:h2:nio:./db/musicstore_db;MODE=MySQL
     username: root
     password: root
 
@@ -30,8 +30,8 @@ spring:
         format_sql: true
 
   flyway:
-    url: jdbc:h2:file:~/musicstore_db
-    user: root
-    password: root
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
     baseline-on-migrate: true
     validate-on-migrate: false

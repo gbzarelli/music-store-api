@@ -1,6 +1,6 @@
 package br.com.beblue.musicstore.settings;
 
-import br.com.beblue.musicstore.service.SpotifyService;
+import br.com.beblue.musicstore.service.SpotifyImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
-    private final SpotifyService spotifyService;
+    private final SpotifyImportService spotifyService;
 
     @Autowired
-    public ApplicationStartup(SpotifyService spotifyService) {
+    public ApplicationStartup(SpotifyImportService spotifyService) {
         this.spotifyService = spotifyService;
     }
 
@@ -20,7 +20,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         new Thread(() -> {
             try {
-                spotifyService.loadMusics();
+                spotifyService.importDisksByGenres();
             } catch (Exception e) {
                 e.printStackTrace();
             }

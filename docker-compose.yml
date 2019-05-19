@@ -4,7 +4,7 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: mysql-music-store
+    container_name: music-store-mysql
     restart: always
     environment:
       MYSQL_DATABASE: musicstore_db
@@ -18,7 +18,7 @@ services:
 
   music-store:
     image: beblue/music-store-api
-    container_name: spring-music-store
+    container_name: music-store-api
     restart: always
     volumes:
       - ./wait-for.sh:/root/wait-for.sh
