@@ -92,7 +92,6 @@ public class SpotifyImportService {
         return Arrays.asList(spotifyRepository.findTrackByGenre(genre.getName()).getItems());
     }
 
-
     private void saveDisc(Track track, GenreEntity genreEntity) {
         DiscEntity discEntity = convertToDisc(track, genreEntity);
         discRepository.save(discEntity);

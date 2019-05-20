@@ -18,10 +18,10 @@ public class ProjectExceptionsHandler {
     }
 
     private HttpResponseException createHttpResponse(Exception exception) {
-        HttpResponseException httpResponseException = new HttpResponseException(exception.getMessage());
-        httpResponseException.addFieldError(exception.getLocalizedMessage());
-        httpResponseException.addFieldError(exception.toString());
-        return httpResponseException;
+        HttpResponseException response = new HttpResponseException(exception.getMessage());
+        response.addFieldError(exception.getLocalizedMessage());
+        response.addFieldError(exception.toString());
+        return response;
     }
 
 }

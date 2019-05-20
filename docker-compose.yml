@@ -27,7 +27,7 @@ services:
     depends_on:
       - mysql
     # Deveria customizar o wait-for para aguardar a inicialização do mysql(criação da base) por completo, está funcionando, porem somente na criação do container
-    # o mysql demora para iniciar e o music-store reinicia 2/3x até subir o server por completo nas proximas inicializações não há esse problema.
+    # o mysql demora para iniciar e o music-store reinicia 2/3x até subir o server. Nas proximas inicializações não há esse problema.
     command: sh -c '/root/wait-for.sh mysql:3306'
     networks:
       - musicstore-network

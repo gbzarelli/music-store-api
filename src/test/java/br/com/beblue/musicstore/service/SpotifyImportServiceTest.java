@@ -2,36 +2,23 @@ package br.com.beblue.musicstore.service;
 
 import br.com.beblue.musicstore.exception.AlreadyImportedDiscsException;
 import br.com.beblue.musicstore.exception.NoGenresException;
-import br.com.beblue.musicstore.model.entity.GenreEntity;
 import br.com.beblue.musicstore.model.repository.DiscRepository;
 import br.com.beblue.musicstore.model.repository.GenreRepository;
 import br.com.beblue.musicstore.model.repository.SpotifyRepository;
-import br.com.beblue.musicstore.settings.ApplicationStartup;
-import com.wrapper.spotify.exceptions.SpotifyWebApiException;
-import com.wrapper.spotify.model_objects.specification.Paging;
-import com.wrapper.spotify.model_objects.specification.Track;
+import br.com.beblue.musicstore.settings.DefaultAppConfigurationsTests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import static br.com.beblue.musicstore.util.ResourceConst.ACTIVE_PROFILES_TEST_VALUE;
-import static org.mockito.Mockito.calls;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@SpringBootTest(classes = DefaultAppConfigurationsTests.class)
 @ActiveProfiles(ACTIVE_PROFILES_TEST_VALUE)
 class SpotifyImportServiceTest {
-
-    @MockBean
-    ApplicationStartup applicationStartup;
 
     @MockBean
     GenreRepository genreRepository;

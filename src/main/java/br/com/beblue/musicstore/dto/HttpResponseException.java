@@ -18,6 +18,14 @@ public class HttpResponseException {
         fields.add(field);
     }
 
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "HttpResponseException{" +

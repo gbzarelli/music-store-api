@@ -20,7 +20,6 @@ spring:
     url: jdbc:h2:nio:./db/musicstore_db;MODE=MySQL
     username: root
     password: root
-
   jpa:
     hibernate:
       ddl-auto: validate

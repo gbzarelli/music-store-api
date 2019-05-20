@@ -21,6 +21,17 @@ public class DiscEntity {
     private double price;
     private Date date_time;
 
+    public DiscEntity(String name, String artist, String spotify_href, GenreEntity genreEntity, double price) {
+        this.name = name;
+        this.artist = artist;
+        this.spotify_href = spotify_href;
+        this.genreEntity = genreEntity;
+        this.price = price;
+    }
+
+    public DiscEntity() {
+    }
+
     public int getId() {
         return id;
     }

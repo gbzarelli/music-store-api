@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static br.com.beblue.musicstore.controller.GenreController.ROOT_PATH;
+
 @RestController
-@RequestMapping("genre")
+@RequestMapping(ROOT_PATH)
 public class GenreController {
+    static final String ROOT_PATH = "/genre";
 
     private final GenreService genreService;
 
