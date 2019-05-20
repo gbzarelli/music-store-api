@@ -15,7 +15,7 @@ public class DiscEntity {
     private String spotify_href;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "id_genre")
     private GenreEntity genreEntity;
 
     private double price;

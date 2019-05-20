@@ -1,5 +1,8 @@
 package br.com.beblue.musicstore.service;
 
+import br.com.beblue.musicstore.exception.AlreadyImportedDiscsException;
+import br.com.beblue.musicstore.exception.NoGenresException;
+import br.com.beblue.musicstore.exception.ImportedException;
 import br.com.beblue.musicstore.model.entity.DiscEntity;
 import br.com.beblue.musicstore.model.entity.GenreEntity;
 import br.com.beblue.musicstore.model.repository.DiscRepository;
@@ -14,11 +17,19 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static br.com.beblue.musicstore.util.converter.DiscConverter.trackToDiscEntity;
 
 @Service
 public class SpotifyImportService {
+
+    @FunctionalInterface
+    public interface ImportErrorCallback {
+        void error(ImportedException throwable);
+    }
 
     private final GenreRepository genreRepository;
     private final DiscRepository discRepository;
@@ -33,20 +44,44 @@ public class SpotifyImportService {
         this.spotifyRepository = spotifyRepository;
     }
 
-    public void importDisksByGenres() {
 
-        if (discRepository.count() > 0) {
-            System.out.println("Already imported discs");
-            return;
+    public void importDiscsByGenres(ImportErrorCallback importErrorCallback) {
+        if (checkAlreadyImported(importErrorCallback)) return;
+        try {
+            executeImportDiscs(importErrorCallback);
+        } catch (NoGenresException e) {
+            importErrorCallback.error(e);
         }
+    }
 
-        genreRepository.findAll().forEach(genre -> {
+    private boolean checkAlreadyImported(ImportErrorCallback importErrorCallback) {
+        if (discRepository.count() > 0) {
+            importErrorCallback.error(new AlreadyImportedDiscsException());
+            return true;
+        }
+        return false;
+    }
+
+    private void executeImportDiscs(ImportErrorCallback importErrorCallback) throws NoGenresException {
+        ExecutorService executorService = createExecutorToImportDiscs();
+        genreRepository.findAll().forEach(genre -> executorService.submit(() -> {
             try {
                 importGenre(genre);
             } catch (IOException | SpotifyWebApiException e) {
-                e.printStackTrace();
+                importErrorCallback.error(new ImportedException(e));
             }
-        });
+        }));
+        executorService.shutdown();
+        awaitImport(importErrorCallback, executorService);
+    }
+
+    private ExecutorService createExecutorToImportDiscs() throws NoGenresException {
+        int value = Long.valueOf(genreRepository.count()).intValue();
+        if (value > 0) {
+            return Executors.newFixedThreadPool(value);
+        } else {
+            throw new NoGenresException();
+        }
     }
 
     private void importGenre(GenreEntity genre) throws IOException, SpotifyWebApiException {
@@ -56,6 +91,7 @@ public class SpotifyImportService {
     private List<Track> getFirstsItemsByGenre(GenreEntity genre) throws IOException, SpotifyWebApiException {
         return Arrays.asList(spotifyRepository.findTrackByGenre(genre.getName()).getItems());
     }
+
 
     private void saveDisc(Track track, GenreEntity genreEntity) {
         DiscEntity discEntity = convertToDisc(track, genreEntity);
@@ -69,5 +105,11 @@ public class SpotifyImportService {
         return discEntity;
     }
 
-
+    private void awaitImport(ImportErrorCallback importErrorCallback, ExecutorService executorService) {
+        try {
+            executorService.awaitTermination(2, TimeUnit.MINUTES);
+        } catch (InterruptedException in) {
+            importErrorCallback.error(new ImportedException(in));
+        }
+    }
 }

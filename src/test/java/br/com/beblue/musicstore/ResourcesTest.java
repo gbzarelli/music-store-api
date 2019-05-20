@@ -1,6 +1,9 @@
 package br.com.beblue.musicstore;
 
+import br.com.beblue.musicstore.model.entity.GenreEntity;
+import br.com.beblue.musicstore.model.repository.GenreRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +13,6 @@ import static br.com.beblue.musicstore.util.ResourceConst.ACTIVE_PROFILES_TEST_V
 import static br.com.beblue.musicstore.util.ResourceConst.KEY_APPLICATION_ENV;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@AutoConfigureMockMvc
 @SpringBootTest
 @ActiveProfiles(ACTIVE_PROFILES_TEST_VALUE)
 class ResourcesTest {

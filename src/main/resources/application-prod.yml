@@ -14,8 +14,3 @@ spring:
     properties:
       hibernate:
         show_sql: false
-
-  flyway:
-    url: ${spring.datasource.url}
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}

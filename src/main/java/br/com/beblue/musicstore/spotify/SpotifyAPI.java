@@ -14,12 +14,15 @@ import java.util.Objects;
 public class SpotifyAPI {
 
     private static final String QUERY_BY_GENRE = "genre: %s";
-    private final Credentials credentials;
+    private final String clientId;
+    private final String clientSecret;
+    private Credentials credentials;
 
     public SpotifyAPI(@Value("${spotify.client.id}") String clientId,
                       @Value("${spotify.client.secret}") String clientSecret
-    ) throws SpotifyWebApiException, IOException {
-        this.credentials = Credentials.loadCredentials(clientId, clientSecret);
+    ) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
     }
 
     /**
@@ -34,10 +37,15 @@ public class SpotifyAPI {
      */
     public Paging<Track> findTrackByGenre(String genre) throws IOException, SpotifyWebApiException {
         Objects.requireNonNull(genre);
-        SearchTracksRequest request = credentials.spotifyApi
+        SearchTracksRequest request = getCredentials().spotifyApi
                 .searchTracks(String.format(QUERY_BY_GENRE, genre))
                 .limit(50)
                 .build();
         return request.execute();
+    }
+
+    private Credentials getCredentials() throws IOException, SpotifyWebApiException {
+        if (credentials == null) this.credentials = Credentials.loadCredentials(clientId, clientSecret);
+        return credentials;
     }
 }

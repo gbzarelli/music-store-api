@@ -9,11 +9,11 @@ CREATE TABLE genres_tbl
 
 CREATE TABLE genres_cashback_tbl
 (
-    id       INT               NOT NULL AUTO_INCREMENT,
-    weekday  INT               NOT NULL,
-    cashback INT               NOT NULL COMMENT 'value in percentage (0-100)',
-    id_genre INT               NOT NULL,
-    enable   TINYINT default 1 NOT NULL,
+    id       INT                  NOT NULL AUTO_INCREMENT,
+    weekday  INT                  NOT NULL,
+    cashback INT                  NOT NULL COMMENT 'value in percentage (0-100)',
+    id_genre INT                  NOT NULL,
+    enable   BOOLEAN default TRUE NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_genres_cashback_id_genre FOREIGN KEY (id_genre) REFERENCES genres_tbl (id)
 ) ENGINE = InnoDB
@@ -25,11 +25,11 @@ CREATE TABLE discs_tbl
     name         VARCHAR(255) NOT NULL,
     artist       VARCHAR(255) NOT NULL,
     spotify_href VARCHAR(255) NOT NULL,
-    genre_id     INT          NOT NULL,
+    id_genre     INT          NOT NULL,
     price        DOUBLE       NOT NULL,
     date_time    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    CONSTRAINT FK_discs_genre_id FOREIGN KEY (genre_id) REFERENCES genres_tbl (id)
+    CONSTRAINT FK_discs_id_genre FOREIGN KEY (id_genre) REFERENCES genres_tbl (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 

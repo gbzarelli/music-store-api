@@ -23,6 +23,7 @@
         <flyway.version>5.2.4</flyway.version>
         <swagger.version>2.9.2</swagger.version>
         <junit-jupiter.version>5.3.2</junit-jupiter.version>
+        <h2.version>1.4.199</h2.version>
     </properties>
 
     <dependencies>
