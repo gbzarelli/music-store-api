@@ -2,14 +2,13 @@ package br.com.beblue.musicstore.controller;
 
 import br.com.beblue.musicstore.dto.SaleRequestDTO;
 import br.com.beblue.musicstore.dto.SaleResponseDTO;
+import br.com.beblue.musicstore.exception.NoValuePresentException;
 import br.com.beblue.musicstore.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import static br.com.beblue.musicstore.controller.SaleController.ROOT_PATH;
 
@@ -26,7 +25,7 @@ public class SaleController {
     }
 
     @PostMapping()
-    public SaleResponseDTO postOrder(@RequestBody List<SaleRequestDTO> saleRequestDTOList) {
+    public SaleResponseDTO postOrder(@RequestBody SaleRequestDTO saleRequestDTOList) throws NoValuePresentException {
         return saleService.registerOrder(saleRequestDTOList);
     }
 }

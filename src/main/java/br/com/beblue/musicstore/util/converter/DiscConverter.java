@@ -7,7 +7,10 @@ import com.wrapper.spotify.model_objects.specification.Track;
 import org.springframework.data.domain.Page;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static br.com.beblue.musicstore.util.converter.GenreConverter.*;
 
 public class DiscConverter {
 
@@ -22,11 +25,16 @@ public class DiscConverter {
         return discEntity;
     }
 
-    public static Page<DiscDTO> pageEntrityToPageDTO(Page<DiscEntity> entities) {
+    public static List<DiscDTO> discEntitiesToDiscsDTO(List<DiscEntity> entities) {
+        return entities.stream().map(DiscConverter::discEntityToDiscDTO).collect(Collectors.toList());
+    }
+
+    public static Page<DiscDTO> pageEntityToPageDTO(Page<DiscEntity> entities) {
         return entities.map(DiscConverter::discEntityToDiscDTO);
     }
 
     public static DiscDTO discEntityToDiscDTO(DiscEntity discEntity) {
-        return new DiscDTO(discEntity.getId(), discEntity.getName(), discEntity.getArtist(), discEntity.getGenreEntity().getName(), discEntity.getPrice());
+        return new DiscDTO(discEntity.getId(), discEntity.getName(), discEntity.getArtist(),
+                genreEntityToGenreDTO(discEntity.getGenreEntity()), discEntity.getPrice(), 0);
     }
 }

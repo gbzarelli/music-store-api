@@ -13,7 +13,7 @@ class Credentials {
     private final String clientSecret;
 
     SpotifyApi spotifyApi;
-    ClientCredentials clientCredentials;
+    private ClientCredentials clientCredentials;
 
     private Credentials(String clientId, String clientSecret) {
         this.clientId = clientId;

@@ -53,8 +53,8 @@ class GenreControllerTest {
 
     private List<GenreDTO> getFakeGenres() {
         List<GenreDTO> genres = new ArrayList<>();
-        genres.add(new GenreDTO("n1"));
-        genres.add(new GenreDTO("n2"));
+        genres.add(new GenreDTO(1, "n1"));
+        genres.add(new GenreDTO(2, "n2"));
         return genres;
     }
 

@@ -11,12 +11,14 @@ public class GenreCashbackEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int weekday;
-    private int cashback;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_genre")
     private GenreEntity genreEntity;
+
     private boolean enable;
+    private int weekday;
+    private int cashback;
 
     public int getId() {
         return id;

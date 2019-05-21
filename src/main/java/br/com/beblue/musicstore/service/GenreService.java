@@ -2,6 +2,7 @@ package br.com.beblue.musicstore.service;
 
 import br.com.beblue.musicstore.dto.GenreDTO;
 import br.com.beblue.musicstore.model.repository.GenreRepository;
+import br.com.beblue.musicstore.util.converter.GenreConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class GenreService {
 
     public List<GenreDTO> getAllGenres() {
         List<GenreDTO> list = new ArrayList<>();
-        genreRepository.findAll().forEach(genreEntity -> list.add(new GenreDTO(genreEntity.getName())));
+        genreRepository.findAll().forEach(genreEntity -> list.add(GenreConverter.genreEntityToGenreDTO(genreEntity)));
         return list;
     }
 }

@@ -1,7 +1,14 @@
 package br.com.beblue.musicstore.model.entity;
 
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
+import org.springframework.boot.convert.Delimiter;
+import org.springframework.data.jpa.repository.Query;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = DiscEntity.TABLE_NAME)
 public class DiscEntity {
@@ -100,4 +107,5 @@ public class DiscEntity {
                 ", date_time=" + date_time +
                 '}';
     }
+
 }

@@ -14,6 +14,7 @@ CREATE TABLE genres_cashback_tbl
     cashback INT                  NOT NULL COMMENT 'value in percentage (0-100)',
     id_genre INT                  NOT NULL,
     enable   BOOLEAN default TRUE NOT NULL,
+    date_time    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     CONSTRAINT FK_genres_cashback_id_genre FOREIGN KEY (id_genre) REFERENCES genres_tbl (id)
 ) ENGINE = InnoDB
@@ -37,8 +38,8 @@ CREATE TABLE sales_tbl
 (
     id             INT          NOT NULL AUTO_INCREMENT,
     uuid           varchar(255) NOT NULL,
-    price          DOUBLE       NOT NULL,
-    price_cashback DOUBLE       NOT NULL,
+    total_price    DOUBLE       NOT NULL,
+    cashback_price DOUBLE       NOT NULL,
     date_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY UK_sales_name (uuid)
