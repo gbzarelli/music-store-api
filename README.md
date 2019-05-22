@@ -102,6 +102,6 @@ $ docker-compose up
 
 ## Cobertura de testes
 
-    {pasta-projeto}/coverage/index.html
+    TODO (IMAGE)
    
 # PROJETO EM DESENVOLVIMENTO...
