@@ -2,10 +2,12 @@ package br.com.beblue.musicstore.service;
 
 import br.com.beblue.musicstore.exception.AlreadyImportedDiscsException;
 import br.com.beblue.musicstore.exception.NoGenresException;
+import br.com.beblue.musicstore.model.entity.GenreEntity;
 import br.com.beblue.musicstore.model.repository.DiscRepository;
 import br.com.beblue.musicstore.model.repository.GenreRepository;
 import br.com.beblue.musicstore.model.repository.SpotifyRepository;
 import br.com.beblue.musicstore.settings.DefaultAppConfigurationsTests;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static br.com.beblue.musicstore.util.ResourceConst.ACTIVE_PROFILES_TEST_VALUE;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = DefaultAppConfigurationsTests.class)
@@ -47,5 +54,25 @@ class SpotifyImportServiceTest {
         service.importDiscsByGenres(error -> Assertions.assertThrows(NoGenresException.class, () -> {
             throw error;
         }));
+    }
+
+
+    @Test
+    void x() throws IOException, SpotifyWebApiException {
+        when(discRepository.count()).thenReturn(0L);
+        when(genreRepository.count()).thenReturn(1L);
+        when(genreRepository.findAll()).thenReturn(getGenresTest());
+        when(spotifyRepository.findTrackByGenre(any())).thenThrow(new SpotifyWebApiException("ex"));
+        service.importDiscsByGenres(error -> Assertions.assertThrows(SpotifyWebApiException.class, () -> {
+            throw error.getCause();
+        }));
+    }
+
+    private Iterable<GenreEntity> getGenresTest() {
+        List<GenreEntity> genreEntityList = new ArrayList<>();
+        GenreEntity genreEntity = new GenreEntity();
+        genreEntity.setId(1);
+        genreEntityList.add(genreEntity);
+        return genreEntityList;
     }
 }

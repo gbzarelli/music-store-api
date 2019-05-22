@@ -20,7 +20,7 @@ public class DiscSaleConverter {
     }
 
     public static DiscDTO discEntityToDiscDTO(DiscSaleEntity discEntity) {
-        return new DiscDTO(discEntity.getId(), discEntity.getDiscEntity().getName(), discEntity.getDiscEntity().getArtist(),
+        return new DiscDTO(discEntity.getDiscEntity().getId(), discEntity.getDiscEntity().getName(), discEntity.getDiscEntity().getArtist(),
                 genreEntityToGenreDTO(discEntity.getDiscEntity().getGenreEntity()), discEntity.getPrice(), discEntity.getCashback());
     }
 }

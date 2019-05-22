@@ -10,7 +10,7 @@ import static br.com.beblue.musicstore.controller.HomeController.ROOT_PATH;
 @RequestMapping(ROOT_PATH)
 public class HomeController {
     static final String ROOT_PATH = "/";
-    public static final String HOME_MESSAGE = "Welcome to the Music Store API";
+    static final String HOME_MESSAGE = "Welcome to the Music Store API";
 
     @GetMapping
     public String index() {

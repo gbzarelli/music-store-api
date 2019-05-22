@@ -19,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(DiscController.class)
 class DiscControllerTest {
 
+    private static final String GENRE_ROCK = "rock";
+
     @Autowired
     MockMvc mockMvc;
 
@@ -33,7 +35,7 @@ class DiscControllerTest {
 
     @Test
     void test_method_get_by_id() throws Exception {
-        mockMvc.perform(get(DiscController.ROOT_PATH + "/1"))
+        mockMvc.perform(get(DiscController.ROOT_PATH + DiscController.PATH_BY_ID, 1))
                 .andExpect(status().isOk());
     }
 
@@ -43,7 +45,7 @@ class DiscControllerTest {
         NoValuePresentException exception = new NoValuePresentException("no value for id=" + userId);
         when(discService.getDisc(userId)).thenThrow(exception);
 
-        mockMvc.perform(get(DiscController.ROOT_PATH + "/" + userId))
+        mockMvc.perform(get(DiscController.ROOT_PATH + DiscController.PATH_BY_ID, userId))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(containsString(exception.getMessage())));
@@ -57,7 +59,7 @@ class DiscControllerTest {
 
     @Test
     void test_method_get_by_genre() throws Exception {
-        mockMvc.perform(get(DiscController.ROOT_PATH + "/genre/rock"))
+        mockMvc.perform(get(DiscController.ROOT_PATH + DiscController.PATH_BY_GENRE, GENRE_ROCK))
                 .andExpect(status().isOk());
     }
 

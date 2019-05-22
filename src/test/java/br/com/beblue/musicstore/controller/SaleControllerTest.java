@@ -25,6 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SaleController.class)
 class SaleControllerTest {
 
+    private static final String ORDER_NUMBER = "4124154-4124GW-GE32GG3-3G3G";
+
     @Autowired
     MockMvc mockMvc;
 
@@ -56,10 +58,9 @@ class SaleControllerTest {
 
     @Test
     void test_get_sale_by_order_number_method() throws Exception {
-        String ORDER_NUMBER = "4124154-4124GW-GE32GG3-3G3G";
         SaleResponseDTO saleResponseDTO = getSaleResponseTest();
         when(saleSearchService.getOrderByNumber(ORDER_NUMBER)).thenReturn(saleResponseDTO);
-        mockMvc.perform(get(SaleController.ROOT_PATH + "/" + ORDER_NUMBER))
+        mockMvc.perform(get(SaleController.ROOT_PATH + SaleController.PATH_BY_ORDER_NUMBER, ORDER_NUMBER))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(saleResponseDTO)));
@@ -69,7 +70,7 @@ class SaleControllerTest {
     void test_get_sales_by_date() throws Exception {
         String startDate = "2012-04-21";
         String endDate = "2012-04-22";
-        mockMvc.perform(get(SaleController.ROOT_PATH + "/start_date/" + startDate + "/end_date/" + endDate))
+        mockMvc.perform(get(SaleController.ROOT_PATH + SaleController.PATH_BY_DATE, startDate, endDate))
                 .andExpect(status().isOk());
     }
 

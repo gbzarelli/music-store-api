@@ -40,7 +40,7 @@ CREATE TABLE sales_tbl
     uuid           varchar(255) NOT NULL,
     total_price    DOUBLE       NOT NULL,
     cashback_price DOUBLE       NOT NULL,
-    date_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    sale_date_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY UK_sales_name (uuid)
 ) ENGINE = InnoDB

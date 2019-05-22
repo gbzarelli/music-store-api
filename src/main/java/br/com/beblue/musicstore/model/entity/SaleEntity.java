@@ -20,7 +20,8 @@ public class SaleEntity {
     @JoinColumn(name = "id_sale")
     private List<DiscSaleEntity> discSaleEntities;
 
-    private Date date_time;
+    @Column(name = "sale_date_time")
+    private Date saleDateTime;
 
     public int getId() {
         return id;
@@ -67,11 +68,11 @@ public class SaleEntity {
         discSaleEntities.add(discSaleEntity);
     }
 
-    public Date getDate_time() {
-        return date_time;
+    public Date getSaleDateTime() {
+        return saleDateTime;
     }
 
-    public void setDate_time(Date date_time) {
-        this.date_time = date_time;
+    public void setSaleDateTime(Date saleDateTime) {
+        this.saleDateTime = saleDateTime;
     }
 }

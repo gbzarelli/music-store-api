@@ -19,6 +19,8 @@ import static br.com.beblue.musicstore.controller.DiscController.ROOT_PATH;
 public class DiscController {
 
     static final String ROOT_PATH = "/disc";
+    static final String PATH_BY_GENRE = "/genre/{genre}";
+    static final String PATH_BY_ID = "/{id}";
 
     private final DiscService discService;
 
@@ -27,7 +29,7 @@ public class DiscController {
         this.discService = discService;
     }
 
-    @GetMapping(value = "/genre/{genre}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = PATH_BY_GENRE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<DiscDTO> list(@PathVariable String genre, Pageable pageable) {
         return discService.getDiscs(genre, pageable);
     }
@@ -37,7 +39,7 @@ public class DiscController {
         return discService.getDiscs(pageable);
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = PATH_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
     public DiscDTO get(@PathVariable int id) throws NoValuePresentException {
         return discService.getDisc(id);
     }
