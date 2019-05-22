@@ -48,25 +48,29 @@ $ docker-compose up
 
 #### Home page
  
- - GET http://{address}:8080
+ - Home page 
+ 
+   GET http://{address}:8080
  
 #### Gênero
 
- - GET http://{address}:8080/genre
+ - Lista de gêneros 
+  
+   GET http://{address}:8080/genre
 
 #### Discos
 
  - Consulta de disco por ID
  
-  GET http://{address}:8080/disc/{id}
+   GET http://{address}:8080/disc/{id}
   
  - Consulta de discos (com paginação)
  
-  GET http://{address}:8080/disc{?page=1&limit=50}
+   GET http://{address}:8080/disc{?page=1&limit=50}
  
  - Consulta de discos por genero (com paginação)
  
-  GET http://{address}:8080/disc/genre]/{genre}{?page=1&limit=50}
+   GET http://{address}:8080/disc/genre]/{genre}{?page=1&limit=50}
  
 - Obs: [`Parametros de paginação`](https://docs.spring.io/spring-data/rest/docs/2.0.0.M1/reference/html/paging-chapter.html)
 
@@ -74,14 +78,14 @@ $ docker-compose up
 
  - Inserção de venda
  
-  POST http://{address}:8080/sale
+   POST http://{address}:8080/sale
 
-  BODY: 
-  ```json
-  {
-    "discsIds":[1,2,3]
-  }
-  ```
+   BODY: 
+   ```json
+   {
+     "discsIds":[1,2,3]
+   }
+   ```
     
  - Consulta de venda por número da compra
   
@@ -96,5 +100,5 @@ $ docker-compose up
 
   http://{address}:8080/swagger-ui.html
    
-# PROJETO EM DESENVOLVIMENTO...
    
+# PROJETO EM DESENVOLVIMENTO...
