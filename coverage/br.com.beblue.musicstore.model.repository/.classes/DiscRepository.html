@@ -1,0 +1,75 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DiscRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">br.com.beblue.musicstore.model.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DiscRepository (br.com.beblue.musicstore.model.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">DiscRepository$MockitoMock$934789373</td>
+  </tr>
+  <tr>
+    <td class="name">DiscRepository$MockitoMock$934789373$auxiliary$iDdT8UGi</td>
+  </tr>
+  <tr>
+    <td class="name">DiscRepository$MockitoMock$934789373$auxiliary$pIgPkjpz</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package br.com.beblue.musicstore.model.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscEntity;
+<i>4</i>&nbsp;import org.springframework.data.domain.Page;
+<i>5</i>&nbsp;import org.springframework.data.domain.Pageable;
+<i>6</i>&nbsp;import org.springframework.data.repository.CrudRepository;
+<i>7</i>&nbsp;import org.springframework.data.repository.PagingAndSortingRepository;
+<i>8</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;@Repository
+<i>13</i>&nbsp;public interface DiscRepository extends PagingAndSortingRepository&lt;DiscEntity, Integer&gt; {
+<i>14</i>&nbsp;    Page&lt;DiscEntity&gt; findAllByGenreEntityNameIgnoreCaseOrderByName(String name, Pageable pageable);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    Page&lt;DiscEntity&gt; findAllByOrderByName(Pageable pageable);
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    List&lt;DiscEntity&gt; findByIdIn(List&lt;Integer&gt; ids);
+<i>19</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-22 11:52</div>
+</div>
+</body>
+</html>

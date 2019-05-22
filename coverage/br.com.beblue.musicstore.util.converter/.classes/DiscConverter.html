@@ -1,0 +1,123 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DiscConverter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">br.com.beblue.musicstore.util.converter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DiscConverter (br.com.beblue.musicstore.util.converter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DiscConverter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    61.5%
+  </span>
+  <span class="absValue">
+    (8/ 13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package br.com.beblue.musicstore.util.converter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import br.com.beblue.musicstore.dto.DiscDTO;
+<i>4</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscEntity;
+<i>5</i>&nbsp;import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+<i>6</i>&nbsp;import com.wrapper.spotify.model_objects.specification.Track;
+<i>7</i>&nbsp;import org.springframework.data.domain.Page;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.Arrays;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;import java.util.stream.Collectors;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import static br.com.beblue.musicstore.util.converter.GenreConverter.*;
+<i>14</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;public class DiscConverter {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    public static DiscEntity trackToDiscEntity(Track track) {
+<b class="fc"><i>18</i>&nbsp;        DiscEntity discEntity = new DiscEntity();</b>
+<b class="fc"><i>19</i>&nbsp;        discEntity.setName(track.getAlbum().getName());</b>
+<b class="fc"><i>20</i>&nbsp;        String artists = Arrays.stream(track.getAlbum().getArtists())</b>
+<b class="fc"><i>21</i>&nbsp;                .map(ArtistSimplified::getName)</b>
+<b class="fc"><i>22</i>&nbsp;                .collect(Collectors.joining(&quot;, &quot;));</b>
+<b class="fc"><i>23</i>&nbsp;        discEntity.setArtist(artists);</b>
+<b class="fc"><i>24</i>&nbsp;        discEntity.setSpotify_href(track.getAlbum().getHref());</b>
+<b class="fc"><i>25</i>&nbsp;        return discEntity;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    public static List&lt;DiscDTO&gt; discEntitiesToDiscsDTO(List&lt;DiscEntity&gt; entities) {
+<b class="nc"><i>29</i>&nbsp;        return entities.stream().map(DiscConverter::discEntityToDiscDTO).collect(Collectors.toList());</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    public static Page&lt;DiscDTO&gt; pageEntityToPageDTO(Page&lt;DiscEntity&gt; entities) {
+<b class="nc"><i>33</i>&nbsp;        return entities.map(DiscConverter::discEntityToDiscDTO);</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    public static DiscDTO discEntityToDiscDTO(DiscEntity discEntity) {
+<b class="nc"><i>37</i>&nbsp;        return new DiscDTO(discEntity.getId(), discEntity.getName(), discEntity.getArtist(),</b>
+<b class="nc"><i>38</i>&nbsp;                genreEntityToGenreDTO(discEntity.getGenreEntity()), discEntity.getPrice(), 0);</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-22 11:52</div>
+</div>
+</body>
+</html>

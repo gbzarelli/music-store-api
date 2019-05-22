@@ -1,0 +1,109 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DiscSaleConverter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">br.com.beblue.musicstore.util.converter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DiscSaleConverter (br.com.beblue.musicstore.util.converter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DiscSaleConverter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package br.com.beblue.musicstore.util.converter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import br.com.beblue.musicstore.dto.DiscDTO;
+<i>4</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscEntity;
+<i>5</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscSaleEntity;
+<i>6</i>&nbsp;import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+<i>7</i>&nbsp;import com.wrapper.spotify.model_objects.specification.Track;
+<i>8</i>&nbsp;import org.springframework.data.domain.Page;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.Arrays;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;import java.util.stream.Collectors;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import static br.com.beblue.musicstore.util.converter.GenreConverter.genreEntityToGenreDTO;
+<i>15</i>&nbsp;
+<b class="nc"><i>16</i>&nbsp;public class DiscSaleConverter {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public static List&lt;DiscDTO&gt; discsSalesEntitiesToDiscsDTO(List&lt;DiscSaleEntity&gt; entities) {
+<b class="fc"><i>19</i>&nbsp;        return entities.stream().map(DiscSaleConverter::discEntityToDiscDTO).collect(Collectors.toList());</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    public static DiscDTO discEntityToDiscDTO(DiscSaleEntity discEntity) {
+<b class="fc"><i>23</i>&nbsp;        return new DiscDTO(discEntity.getId(), discEntity.getDiscEntity().getName(), discEntity.getDiscEntity().getArtist(),</b>
+<b class="fc"><i>24</i>&nbsp;                genreEntityToGenreDTO(discEntity.getDiscEntity().getGenreEntity()), discEntity.getPrice(), discEntity.getCashback());</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-22 11:52</div>
+</div>
+</body>
+</html>

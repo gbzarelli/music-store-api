@@ -30,10 +30,9 @@ public class SaleService {
         this.cashbackService = cashbackService;
     }
 
+    public SaleResponseDTO registerOrder(SaleRequestDTO item) throws NoValuePresentException {
 
-    public SaleResponseDTO registerOrder(SaleRequestDTO items) throws NoValuePresentException {
-
-        List<DiscEntity> entities = validateAndGetEntities(items);
+        List<DiscEntity> entities = validateAndGetEntities(item);
         Map<Integer, Integer> cashbackMap = genreCashbackEntitiesToMap(cashbackService.getCashbacks());
 
         SaleEntity saleEntity = new SaleEntity();
@@ -76,7 +75,8 @@ public class SaleService {
     }
 
     private void checkInput(SaleRequestDTO request) throws NoValuePresentException {
-        if (request.getDiscsIds().isEmpty()) throw new NoValuePresentException("Empty discs id");
+        if (request.getDiscsIds() == null || request.getDiscsIds().isEmpty())
+            throw new NoValuePresentException("Empty discs id");
     }
 
     private List<DiscEntity> findDiscs(SaleRequestDTO request) {
@@ -87,7 +87,8 @@ public class SaleService {
         if (items.getDiscsIds().size() == discEntities.size()) return;
         List<Integer> noPresentValues = new ArrayList<>();
         discEntities.forEach(discEntity -> {
-            if (!items.getDiscsIds().contains(discEntity.getId())) {
+            List<Integer> l = items.getDiscsIds();
+            if (l.stream().anyMatch(integer -> integer == discEntity.getId())) {
                 noPresentValues.add(discEntity.getId());
             }
         });

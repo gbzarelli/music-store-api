@@ -1,0 +1,199 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SaleService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">br.com.beblue.musicstore.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SaleService (br.com.beblue.musicstore.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SaleService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (44/ 44)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SaleService$MockitoMock$291261700</td>
+  </tr>
+  <tr>
+    <td class="name">SaleService$MockitoMock$291261700$auxiliary$H9T1UKlf</td>
+  </tr>
+  <tr>
+    <td class="name">SaleService$MockitoMock$291261700$auxiliary$ndsrRQpE</td>
+  </tr>
+  <tr>
+    <td class="name">SaleService$MockitoMock$291261700$auxiliary$vykv1wvf</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (44/ 44)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package br.com.beblue.musicstore.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import br.com.beblue.musicstore.dto.SaleRequestDTO;
+<i>4</i>&nbsp;import br.com.beblue.musicstore.dto.SaleResponseDTO;
+<i>5</i>&nbsp;import br.com.beblue.musicstore.exception.NoValuePresentException;
+<i>6</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscEntity;
+<i>7</i>&nbsp;import br.com.beblue.musicstore.model.entity.DiscSaleEntity;
+<i>8</i>&nbsp;import br.com.beblue.musicstore.model.entity.GenreCashbackEntity;
+<i>9</i>&nbsp;import br.com.beblue.musicstore.model.entity.SaleEntity;
+<i>10</i>&nbsp;import br.com.beblue.musicstore.model.repository.DiscRepository;
+<i>11</i>&nbsp;import br.com.beblue.musicstore.model.repository.SaleRepository;
+<i>12</i>&nbsp;import br.com.beblue.musicstore.util.converter.DiscSaleConverter;
+<i>13</i>&nbsp;import br.com.beblue.musicstore.util.converter.SaleConverter;
+<i>14</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>15</i>&nbsp;import org.springframework.stereotype.Service;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import java.util.*;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;@Service
+<i>20</i>&nbsp;public class SaleService {
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    private final SaleRepository saleRepository;
+<i>23</i>&nbsp;    private final DiscRepository discRepository;
+<i>24</i>&nbsp;    private final CashbackService cashbackService;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Autowired
+<b class="fc"><i>27</i>&nbsp;    public SaleService(SaleRepository saleRepository, DiscRepository discRepository, CashbackService cashbackService) {</b>
+<b class="fc"><i>28</i>&nbsp;        this.saleRepository = saleRepository;</b>
+<b class="fc"><i>29</i>&nbsp;        this.discRepository = discRepository;</b>
+<b class="fc"><i>30</i>&nbsp;        this.cashbackService = cashbackService;</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    public SaleResponseDTO registerOrder(SaleRequestDTO item) throws NoValuePresentException {
+<i>34</i>&nbsp;
+<b class="fc"><i>35</i>&nbsp;        List&lt;DiscEntity&gt; entities = validateAndGetEntities(item);</b>
+<b class="fc"><i>36</i>&nbsp;        Map&lt;Integer, Integer&gt; cashbackMap = genreCashbackEntitiesToMap(cashbackService.getCashbacks());</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;        SaleEntity saleEntity = new SaleEntity();</b>
+<b class="fc"><i>39</i>&nbsp;        saleEntity.setUuid(UUID.randomUUID().toString());</b>
+<i>40</i>&nbsp;
+<b class="fc"><i>41</i>&nbsp;        entities.forEach(entity -&gt; {</b>
+<b class="fc"><i>42</i>&nbsp;            Integer cashback = cashbackMap.get(entity.getGenreEntity().getId());</b>
+<b class="fc"><i>43</i>&nbsp;            double cashbackPrice = getCashbackPrice(entity.getPrice(), cashback);</b>
+<b class="fc"><i>44</i>&nbsp;            DiscSaleEntity discSaleEntity = new DiscSaleEntity();</b>
+<b class="fc"><i>45</i>&nbsp;            discSaleEntity.setSaleEntity(saleEntity);</b>
+<b class="fc"><i>46</i>&nbsp;            discSaleEntity.setCashback(cashback);</b>
+<b class="fc"><i>47</i>&nbsp;            discSaleEntity.setPrice(entity.getPrice());</b>
+<b class="fc"><i>48</i>&nbsp;            discSaleEntity.setDiscEntity(entity);</b>
+<b class="fc"><i>49</i>&nbsp;            discSaleEntity.setPrice_cashback(cashbackPrice);</b>
+<b class="fc"><i>50</i>&nbsp;            saleEntity.setTotal_price(saleEntity.getTotal_price() + entity.getPrice());</b>
+<b class="fc"><i>51</i>&nbsp;            saleEntity.setCashback_price(saleEntity.getCashback_price() + cashbackPrice);</b>
+<b class="fc"><i>52</i>&nbsp;            saleEntity.addDiscSaleEntity(discSaleEntity);</b>
+<b class="fc"><i>53</i>&nbsp;        });</b>
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;        saleRepository.save(saleEntity);</b>
+<i>56</i>&nbsp;
+<b class="fc"><i>57</i>&nbsp;        return SaleConverter.saleEntityToSaleResponseDTO(saleEntity);</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    private double getCashbackPrice(double price, Integer cashback) {
+<b class="fc"><i>61</i>&nbsp;        return (price * cashback) / 100;</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    private Map&lt;Integer, Integer&gt; genreCashbackEntitiesToMap(List&lt;GenreCashbackEntity&gt; cashbackList) {
+<b class="fc"><i>65</i>&nbsp;        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>66</i>&nbsp;        cashbackList.forEach(item -&gt; map.put(item.getGenreEntity().getId(), item.getCashback()));</b>
+<b class="fc"><i>67</i>&nbsp;        return map;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    private List&lt;DiscEntity&gt; validateAndGetEntities(SaleRequestDTO items) throws NoValuePresentException {
+<b class="fc"><i>71</i>&nbsp;        checkInput(items);</b>
+<b class="fc"><i>72</i>&nbsp;        List&lt;DiscEntity&gt; discEntities = findDiscs(items);</b>
+<b class="fc"><i>73</i>&nbsp;        checkNoPresentIds(items, discEntities);</b>
+<b class="fc"><i>74</i>&nbsp;        return discEntities;</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    private void checkInput(SaleRequestDTO request) throws NoValuePresentException {
+<b class="fc"><i>78</i>&nbsp;        if (request.getDiscsIds() == null || request.getDiscsIds().isEmpty())</b>
+<b class="fc"><i>79</i>&nbsp;            throw new NoValuePresentException(&quot;Empty discs id&quot;);</b>
+<b class="fc"><i>80</i>&nbsp;    }</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    private List&lt;DiscEntity&gt; findDiscs(SaleRequestDTO request) {
+<b class="fc"><i>83</i>&nbsp;        return discRepository.findByIdIn(request.getDiscsIds());</b>
+<i>84</i>&nbsp;    }
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    private void checkNoPresentIds(SaleRequestDTO items, List&lt;DiscEntity&gt; discEntities) throws NoValuePresentException {
+<b class="fc"><i>87</i>&nbsp;        if (items.getDiscsIds().size() == discEntities.size()) return;</b>
+<b class="fc"><i>88</i>&nbsp;        List&lt;Integer&gt; noPresentValues = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>89</i>&nbsp;        discEntities.forEach(discEntity -&gt; {</b>
+<b class="fc"><i>90</i>&nbsp;            List&lt;Integer&gt; l = items.getDiscsIds();</b>
+<b class="fc"><i>91</i>&nbsp;            if (l.stream().anyMatch(integer -&gt; integer == discEntity.getId())) {</b>
+<b class="fc"><i>92</i>&nbsp;                noPresentValues.add(discEntity.getId());</b>
+<i>93</i>&nbsp;            }
+<b class="fc"><i>94</i>&nbsp;        });</b>
+<b class="fc"><i>95</i>&nbsp;        throw new NoValuePresentException(&quot;Discs not available: &quot; + noPresentValues.toString());</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-22 11:52</div>
+</div>
+</body>
+</html>

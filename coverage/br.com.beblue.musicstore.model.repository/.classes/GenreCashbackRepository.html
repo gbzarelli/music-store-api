@@ -1,0 +1,63 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GenreCashbackRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">br.com.beblue.musicstore.model.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GenreCashbackRepository (br.com.beblue.musicstore.model.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">GenreCashbackRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package br.com.beblue.musicstore.model.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import br.com.beblue.musicstore.model.entity.GenreCashbackEntity;
+<i>4</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i>5</i>&nbsp;import org.springframework.data.repository.CrudRepository;
+<i>6</i>&nbsp;import org.springframework.stereotype.Repository;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@Repository
+<i>11</i>&nbsp;public interface GenreCashbackRepository extends CrudRepository&lt;GenreCashbackEntity, Integer&gt; {
+<i>12</i>&nbsp;    GenreCashbackEntity findByGenreEntityIdAndWeekdayAndEnableTrue(int genreId, int weekday);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    List&lt;GenreCashbackEntity&gt; findByWeekdayAndEnableTrue(int weekday);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-05-22 11:52</div>
+</div>
+</body>
+</html>

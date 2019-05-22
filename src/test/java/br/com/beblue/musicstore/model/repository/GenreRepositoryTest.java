@@ -24,13 +24,4 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ActiveProfiles(ACTIVE_PROFILES_TEST_VALUE)
 class GenreRepositoryTest {
 
-    @Autowired
-    GenreRepository genreRepository;
-
-    @Test
-    void should_return_the_default_genres() {
-        assertEquals(genreRepository.count(), DEFAULT_GENRES.size());
-        genreRepository.findAll().forEach(genre -> assertTrue(DEFAULT_GENRES.contains(genre.getName())));
-    }
-
 }

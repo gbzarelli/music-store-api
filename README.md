@@ -70,7 +70,7 @@ $ docker-compose up
  
  - Consulta de discos por genero (com paginação)
  
-   GET http://{address}:8080/disc/genre]/{genre}{?page=1&limit=50}
+   GET http://{address}:8080/disc/genre/{genre}{?page=1&limit=50}
  
 - Obs: [`Parametros de paginação`](https://docs.spring.io/spring-data/rest/docs/2.0.0.M1/reference/html/paging-chapter.html)
 
@@ -93,12 +93,15 @@ $ docker-compose up
    
  - Consulta de vendas por data
   
-   GET http://{address}:8080/sale/datainicio/{dataInicio}/datafim/{dataFim}{?page=1&limit=50}
+   GET http://{address}:8080/sale/start_date/{dataInicio}/end_date/{dataFim}{?page=1&limit=50}
  
  
 ## Documentação dinâmica com o Swagger
 
   http://{address}:8080/swagger-ui.html
-   
+
+## Cobertura de testes
+
+    {pasta-projeto}/coverage/index.html
    
 # PROJETO EM DESENVOLVIMENTO...
