@@ -99,9 +99,3 @@ $ docker-compose up
 ## Documentação dinâmica com o Swagger
 
   http://{address}:8080/swagger-ui.html
-
-## Cobertura de testes
-
-    TODO (IMAGE)
-   
-# PROJETO EM DESENVOLVIMENTO...

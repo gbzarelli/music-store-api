@@ -17,6 +17,4 @@ import static br.com.beblue.musicstore.util.ResourceConst.ACTIVE_PROFILES_TEST_V
 @EntityScan(basePackageClasses = GenreEntity.class)
 @ActiveProfiles(ACTIVE_PROFILES_TEST_VALUE)
 class SaleRepositoryTest {
-    @Test
-    void x(){}
 }
