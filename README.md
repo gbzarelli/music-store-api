@@ -1,4 +1,6 @@
-# Music Store API
+![](https://img.shields.io/github/issues/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/forks/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/stars/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/license/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/release/gbzarelli/music-store-api.svg) [![Coverage Status](https://coveralls.io/repos/github/gbzarelli/music-store-api/badge.svg?branch=master)](https://coveralls.io/github/gbzarelli/music-store-api?branch=master)
+
+# Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
 
  API para consultas e vendas de discos.
 
@@ -94,6 +96,8 @@ $ docker-compose up
  - Consulta de vendas por data
   
    GET http://{address}:8080/sale/start_date/{dataInicio}/end_date/{dataFim}{?page=1&limit=50}
+   
+   Obs: Formato de data aceito: 'yyyy-MM-dd' ex: `2019-05-23`
  
  
 ## Documentação dinâmica com o Swagger
