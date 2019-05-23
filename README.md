@@ -1,4 +1,4 @@
-![](https://img.shields.io/github/issues/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/forks/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/stars/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/license/gbzarelli/music-store-api.svg) ![](https://img.shields.io/github/release/gbzarelli/music-store-api.svg) [![Coverage Status](https://coveralls.io/repos/github/gbzarelli/music-store-api/badge.svg?branch=master)](https://coveralls.io/github/gbzarelli/music-store-api?branch=master)
+![Issues](https://img.shields.io/github/issues/gbzarelli/music-store-api.svg) ![Forks](https://img.shields.io/github/forks/gbzarelli/music-store-api.svg) ![Stars](https://img.shields.io/github/stars/gbzarelli/music-store-api.svg) ![Release Version](https://img.shields.io/github/release/gbzarelli/music-store-api.svg)
 
 # Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
 
