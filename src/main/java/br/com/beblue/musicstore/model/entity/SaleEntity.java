@@ -7,7 +7,8 @@ import java.util.List;
 
 @Entity(name = SaleEntity.TABLE_NAME)
 public class SaleEntity {
-    static final String TABLE_NAME = "sales_tbl";
+    public static final String TABLE_NAME = "sales_tbl";
+    public static final String COLUMN_SALE_DATE_TIME = "sale_date_time";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class SaleEntity {
     @JoinColumn(name = "id_sale")
     private List<DiscSaleEntity> discSaleEntities;
 
-    @Column(name = "sale_date_time")
+    @Column(name =COLUMN_SALE_DATE_TIME)
     private Date saleDateTime;
 
     public int getId() {

@@ -3,18 +3,19 @@ package br.com.beblue.musicstore.model.repository;
 import br.com.beblue.musicstore.model.entity.SaleEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface SaleRepository extends PagingAndSortingRepository<SaleEntity, Integer> {
-    Page<SaleEntity> findByIdIn(List<Integer> ids, Pageable pageable);
 
-    Page<SaleEntity> findAllBySaleDateTimeBetween(Date start, Date end, Pageable pageable);
+    @Query(value = "select * from " + SaleEntity.TABLE_NAME + " sale where date(sale." + SaleEntity.COLUMN_SALE_DATE_TIME + ") between :start and :end", nativeQuery = true)
+    Page<SaleEntity> findAllBySaleDateTimeBetween(@Param("start") Date start, @Param("end") Date end, Pageable pageable);
 
     Optional<SaleEntity> findByUuid(String uuid);
 }
