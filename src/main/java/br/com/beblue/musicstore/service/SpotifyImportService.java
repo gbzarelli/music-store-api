@@ -55,6 +55,7 @@ public class SpotifyImportService {
     }
 
     private boolean checkAlreadyImported(ImportErrorCallback importErrorCallback) {
+        // Poderia ser realizado uma consistencia mais adequada para verificar se os discos já foram importados.
         if (discRepository.count() > 0) {
             importErrorCallback.error(new AlreadyImportedDiscsException());
             return true;

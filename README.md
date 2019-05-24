@@ -2,7 +2,12 @@
 
 # Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
 
- API para consultas e vendas de discos.
+ O `Music Store API` trata-se de uma API para consultas e vendas de discos, 
+ sua base de dados é alimentada pela API do `Spotify` na inicialização do sistema,
+ cada disco tem um valor randômico entre 10 e 100 e está associado a uma das
+ quatro categorias pré definidas no sistema (POP, MPB, CLASSICA e ROCK), 
+ na venda do disco será gerado um cashback de acordo com o dia da semana e o genêro de cada disco, 
+ esses valores também estão pré definidos de acordo com as especificações do sistema.
 
 ## Especificações
  
@@ -31,18 +36,43 @@
 
 ## Executando com Docker em ambiente de desenvolvimento
 
- Primeiramente entre na pasta do projeto, agora executaremos as seguintes
-instruções:
+ Os seguintes passos foram documentados para serem executados em uma plataforna
+ Linux, porém os comandos com o sistema Windows podem ser semelhantes, mas,
+ o funcionamento não é totalmente garantido. Certifique-se que tenha instalado
+ em seu ambiente o `Java` (com o JAVA_HOME no classpath devidamente configurado)
+ e o `Maven`
 
-- A instrução a seguir executará atravéz do [`Maven`](https://maven.apache.org) o `clean` do projeto, logo após o `package`, que executará os testes unitários para garantir a integridade do projeto e para gerar nosso `.jar`, por ultimo será realizado o build do [`Dockerfile`](./Dockerfile) gerando uma imagem no repositório local denominada de `beblue/music-store-api`. Para a realização do build foi utilizado o plugin [`dockerfile-maven-plugin`](https://github.com/spotify/docker-maven-plugin) configurado no [`pom.xml`](./pom.xml) do projeto.
+- Efetue o clone do projeto:
 
-```sh
+```shell
+$ git clone https://github.com/gbzarelli/music-store-api.git
+```
+
+- Acesse a pasta do projeto para iniciarmos a compilação e execução do sistema:
+
+```shell
+$ cd ./music-store-api
+```
+
+- A instrução a seguir executará atravéz do [`Maven`](https://maven.apache.org) 
+o `clean` do projeto, logo após o `package`, que executará os testes unitários 
+para garantir a integridade do projeto e para gerar nosso `.jar`, por ultimo 
+será realizado o build do [`Dockerfile`](./Dockerfile) gerando uma imagem 
+no repositório local denominada de `beblue/music-store-api`. 
+Para a realização do build foi utilizado o plugin 
+[`dockerfile-maven-plugin`](https://github.com/spotify/docker-maven-plugin) 
+configurado no [`pom.xml`](./pom.xml) do projeto.
+
+```shell
 $ mvn clean package dockerfile:build
 ```
 
-- Após ter gerado a imagem da API atravéz do `dockerfile:build` iremos montar os containers pelo [`docker-compose`](./docker-compose.yml). O compose preparado irá deixar configurado uma container para o banco de dados e para o `music-store-api`:
+- Após ter gerado a imagem da API atravéz do `dockerfile:build` iremos 
+montar os containers pelo [`docker-compose`](./docker-compose.yml). 
+O compose preparado deixará configurado uma container para o 
+banco de dados `MySQL` e para o `music-store-api`:
 
-```sh
+```shell
 $ docker-compose up
 ```
 
@@ -101,5 +131,8 @@ $ docker-compose up
  
  
 ## Documentação dinâmica com o Swagger
+
+A `Swagger` UI fornece uma estrutura de exibição que é capaz de interpretar
+os endpoints do projeto e gera um site de documentação interativa
 
   http://{address}:8080/swagger-ui.html

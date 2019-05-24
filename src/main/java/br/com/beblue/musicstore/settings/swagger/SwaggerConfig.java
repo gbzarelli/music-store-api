@@ -39,9 +39,9 @@ public class SwaggerConfig {
     private ApiInfo getApiInfo() {
         return new ApiInfo(name, description, version,
                 "Terms of Service",
-                new Contact("Beblue", "http://beblue.com.br", "contato@beblue.com.br"),
-                "APACHE-2.0",
-                "https://opensource.org/licenses/Apache-2.0",
+                new Contact("Guilherme Biff Zarelli", "http://helpdev.com.br", "gbzarelli@helpdev.com.br"),
+                "MIT",
+                "https://opensource.org/licenses/MIT",
                 Collections.emptyList());
     }
 }

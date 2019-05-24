@@ -23,6 +23,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         long time = System.currentTimeMillis();
         spotifyService.importDiscsByGenres(ImportedException::printStackTrace);
-        System.out.println("Time to import: " + TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - time)) + "seg");
+        System.out.println("Import time: " + TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - time)) + "seg");
+        System.out.println("----Application started----");
     }
 }
