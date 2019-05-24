@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Objects;
 
+import static br.com.beblue.musicstore.util.ResourceConst.KEY_SPOTIFY_CLIENT_ID;
+import static br.com.beblue.musicstore.util.ResourceConst.KEY_SPOTIFY_CLIENT_SECRET;
+
 @Component
 public class SpotifyAPI {
 
@@ -18,8 +21,8 @@ public class SpotifyAPI {
     private final String clientSecret;
     private Credentials credentials;
 
-    public SpotifyAPI(@Value("${spotify.client.id}") String clientId,
-                      @Value("${spotify.client.secret}") String clientSecret
+    public SpotifyAPI(@Value(KEY_SPOTIFY_CLIENT_ID) String clientId,
+                      @Value(KEY_SPOTIFY_CLIENT_SECRET) String clientSecret
     ) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;

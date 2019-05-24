@@ -8,6 +8,11 @@ application:
   version: @project.version@
   environment: default
 
+  mq:
+    queue:
+      sale:
+        name: music-store-sales
+
 spotify:
   client:
     id: 1228515c3a654087b2a33907226e09e9
@@ -34,3 +39,8 @@ spring:
     password: ${spring.datasource.password}
     baseline-on-migrate: true
     validate-on-migrate: false
+
+  rabbitmq:
+    host: localhost
+    username: rabbitmq
+    password: rabbitmq
