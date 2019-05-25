@@ -1,5 +1,6 @@
 package br.com.beblue.musicstore.service;
 
+import br.com.beblue.musicstore.amq.SaleAMQSender;
 import br.com.beblue.musicstore.dto.SaleRequestDTO;
 import br.com.beblue.musicstore.dto.SaleResponseDTO;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
@@ -9,7 +10,6 @@ import br.com.beblue.musicstore.model.entity.GenreCashbackEntity;
 import br.com.beblue.musicstore.model.entity.SaleEntity;
 import br.com.beblue.musicstore.model.repository.DiscRepository;
 import br.com.beblue.musicstore.model.repository.SaleRepository;
-import br.com.beblue.musicstore.util.converter.DiscSaleConverter;
 import br.com.beblue.musicstore.util.converter.SaleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +22,14 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final DiscRepository discRepository;
     private final CashbackService cashbackService;
+    private final SaleAMQSender saleAMQSender;
 
     @Autowired
-    public SaleService(SaleRepository saleRepository, DiscRepository discRepository, CashbackService cashbackService) {
+    public SaleService(SaleRepository saleRepository, DiscRepository discRepository, CashbackService cashbackService, SaleAMQSender saleAMQSender) {
         this.saleRepository = saleRepository;
         this.discRepository = discRepository;
         this.cashbackService = cashbackService;
+        this.saleAMQSender = saleAMQSender;
     }
 
     public SaleResponseDTO registerOrder(SaleRequestDTO item) throws NoValuePresentException {
@@ -52,9 +54,24 @@ public class SaleService {
             saleEntity.addDiscSaleEntity(discSaleEntity);
         });
 
-        saleRepository.save(saleEntity);
+        persist(saleEntity);
+        notifyMessageQueue(saleEntity);
 
         return SaleConverter.saleEntityToSaleResponseDTO(saleEntity);
+    }
+
+    private void notifyMessageQueue(SaleEntity saleEntity) {
+        // Caso falte comunicação ou de erro de persistencia, o sistema não
+        //deve parar. Posteriormente tratar o Log de erro
+        try {
+            saleAMQSender.send(saleEntity.getUuid());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    private void persist(SaleEntity saleEntity) {
+        saleRepository.save(saleEntity);
     }
 
     private double getCashbackPrice(double price, Integer cashback) {

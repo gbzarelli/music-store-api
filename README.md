@@ -19,9 +19,12 @@
  - Consultar uma venda pelo seu identificador;
  - Registrar uma nova venda de discos calculando o valor total de cashback considerando a tabela.
  
- O serviço será alimentado pela base de dados do `spotfy` [`web-api`](https://developer.spotify.com/documentation/web-api/quick-start/)
+ - O serviço será alimentado pela base de dados do `spotfy` [`web-api`](https://developer.spotify.com/documentation/web-api/quick-start/)
+ - Cada venda poderá ter 1 ou mais discos selecionados, o cashback deverá ser calculado e armazenado individualmente para cada disco bem como o cashback total da venda.
  
- Cada venda poderá ter 1 ou mais discos selecionados, o cashback deverá ser calculado e armazenado individualmente para cada disco bem como o cashback total da venda.
+ Extra:
+ 
+ - Ao registrar uma venda, a API deve enviar uma mensagem a um serviço de mensageria passando o número único da venda. 
 
 ## Tecnologias
 
@@ -32,6 +35,7 @@
  - [`Swagger`](https://swagger.io) - Documentação de API de forma dinâmica
  - [`JPA/Hibernate`](https://hibernate.org/orm/) - Framework para persistencia de dados / ORM
  - [`Docker`](https://www.docker.com) - Executa e gerencia aplicações dentro de invólucros chamados containers
+ - [`RabbitMQ`](https://www.rabbitmq.com) - RabbitMQ é um servidor de mensageria
  - [`jUnit5 e Mockito`](https://junit.org/junit5/) - Execução de testes
 
 ## Executando com Docker em ambiente de desenvolvimento

@@ -2,6 +2,18 @@ version: '3'
 
 services:
 
+  rabbitmq:
+    container_name: rabbit-mq
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - musicstore-network
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+
   mysql:
     image: mysql:5.7
     container_name: music-store-mysql
