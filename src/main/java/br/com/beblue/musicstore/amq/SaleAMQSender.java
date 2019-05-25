@@ -1,5 +1,6 @@
 package br.com.beblue.musicstore.amq;
 
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class SaleAMQSender {
         this.topicExchange = topicExchange;
     }
 
-    public void send(String order) {
+    public void send(String order) throws AmqpException {
         rabbitTemplate.convertAndSend(topicExchange.getName(), exchangeRoutingKey, order);
     }
 

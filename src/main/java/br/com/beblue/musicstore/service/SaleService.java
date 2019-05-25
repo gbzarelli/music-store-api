@@ -61,7 +61,13 @@ public class SaleService {
     }
 
     private void notifyMessageQueue(SaleEntity saleEntity) {
-        saleAMQSender.send(saleEntity.getUuid());
+        // Caso falte comunicação ou de erro de persistencia, o sistema não
+        //deve parar. Posteriormente tratar o Log de erro
+        try {
+            saleAMQSender.send(saleEntity.getUuid());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     private void persist(SaleEntity saleEntity) {
