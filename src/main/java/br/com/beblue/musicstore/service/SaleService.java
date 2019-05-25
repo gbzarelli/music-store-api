@@ -1,6 +1,6 @@
 package br.com.beblue.musicstore.service;
 
-import br.com.beblue.musicstore.amqp.SaleQueueSender;
+import br.com.beblue.musicstore.amq.SaleAMQSender;
 import br.com.beblue.musicstore.dto.SaleRequestDTO;
 import br.com.beblue.musicstore.dto.SaleResponseDTO;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
@@ -22,14 +22,14 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final DiscRepository discRepository;
     private final CashbackService cashbackService;
-    private final SaleQueueSender saleQueueSender;
+    private final SaleAMQSender saleAMQSender;
 
     @Autowired
-    public SaleService(SaleRepository saleRepository, DiscRepository discRepository, CashbackService cashbackService, SaleQueueSender saleQueueSender) {
+    public SaleService(SaleRepository saleRepository, DiscRepository discRepository, CashbackService cashbackService, SaleAMQSender saleAMQSender) {
         this.saleRepository = saleRepository;
         this.discRepository = discRepository;
         this.cashbackService = cashbackService;
-        this.saleQueueSender = saleQueueSender;
+        this.saleAMQSender = saleAMQSender;
     }
 
     public SaleResponseDTO registerOrder(SaleRequestDTO item) throws NoValuePresentException {
@@ -61,7 +61,7 @@ public class SaleService {
     }
 
     private void notifyMessageQueue(SaleEntity saleEntity) {
-        saleQueueSender.send(saleEntity.getUuid());
+        saleAMQSender.send(saleEntity.getUuid());
     }
 
     private void persist(SaleEntity saleEntity) {

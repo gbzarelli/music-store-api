@@ -1,5 +1,6 @@
 package br.com.beblue.musicstore.service;
 
+import br.com.beblue.musicstore.amq.SaleAMQSender;
 import br.com.beblue.musicstore.dto.SaleRequestDTO;
 import br.com.beblue.musicstore.dto.SaleResponseDTO;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
@@ -40,6 +41,9 @@ class SaleServiceTest {
 
     @MockBean
     CashbackService cashbackService;
+
+    @MockBean
+    SaleAMQSender saleAMQSender;
 
     @Test
     void test_no_value_present_exception_with_empty_list() {

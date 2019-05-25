@@ -9,9 +9,12 @@ application:
   environment: default
 
   mq:
-    queue:
-      sale:
-        name: music-store-sales
+    sale:
+      queue:
+        name: sales
+      exchange:
+        name: sales-exchange
+        routing-key: musicstore.sales
 
 spotify:
   client:
