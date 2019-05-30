@@ -39,5 +39,6 @@ jobs:
 
       # run tests!
       - run: mvn test
+      # artifact jacoco coverage
       - store_artifacts:
-          path:  target
+          path:  target/site/jacoco-aggregate
