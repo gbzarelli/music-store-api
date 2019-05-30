@@ -39,3 +39,5 @@ jobs:
 
       # run tests!
       - run: mvn test
+      - store_artifacts:
+          path:  target
