@@ -21,8 +21,8 @@ public class SpotifyAPI {
     private final String clientSecret;
     private Credentials credentials;
 
-    public SpotifyAPI(@Value(KEY_SPOTIFY_CLIENT_ID) String clientId,
-                      @Value(KEY_SPOTIFY_CLIENT_SECRET) String clientSecret
+    SpotifyAPI(@Value(KEY_SPOTIFY_CLIENT_ID) final String clientId,
+               @Value(KEY_SPOTIFY_CLIENT_SECRET) final String clientSecret
     ) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;

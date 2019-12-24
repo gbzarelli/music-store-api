@@ -1,6 +1,6 @@
 package br.com.beblue.musicstore.settings.exception;
 
-import br.com.beblue.musicstore.dto.HttpResponseException;
+import br.com.beblue.musicstore.controller.dto.HttpResponseException;
 import br.com.beblue.musicstore.exception.IllegalDateException;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class ProjectExceptionsHandler {
+class ProjectExceptionsHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = NoValuePresentException.class)

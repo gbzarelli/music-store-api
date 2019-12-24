@@ -4,19 +4,18 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import static br.com.beblue.musicstore.util.BeanConst.BEAN_SALE_QUEUE;
-import static br.com.beblue.musicstore.util.BeanConst.BEAN_SALE_EXCHANGE;
+import static br.com.beblue.musicstore.util.BeansConst.BEAN_SALE_EXCHANGE;
+import static br.com.beblue.musicstore.util.BeansConst.BEAN_SALE_QUEUE;
 import static br.com.beblue.musicstore.util.ResourceConst.*;
 
 @Configuration
-public class SaleConfig {
+class SaleConfig {
 
     @Value(KEY_APPLICATION_MQ_SALE_QUEUE_NAME)
     private String queueName;
