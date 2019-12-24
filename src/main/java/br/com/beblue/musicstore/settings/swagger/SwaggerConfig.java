@@ -15,7 +15,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+class SwaggerConfig {
 
     @Value("${application.version}")
     private String version;
