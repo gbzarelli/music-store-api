@@ -7,6 +7,9 @@ import br.com.beblue.musicstore.exception.IllegalDateException;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
 import br.com.beblue.musicstore.service.SaleSearchService;
 import br.com.beblue.musicstore.service.SaleService;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +19,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping(SaleRestController.ROOT_PATH)
+@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@Autowired))
 class SaleRestController implements SaleController {
 
     static final String ROOT_PATH = "/sale";
@@ -24,12 +28,6 @@ class SaleRestController implements SaleController {
 
     private final SaleService saleService;
     private final SaleSearchService saleSearchService;
-
-    SaleRestController(final SaleService saleService,
-                       final SaleSearchService saleSearchService) {
-        this.saleService = saleService;
-        this.saleSearchService = saleSearchService;
-    }
 
     @PostMapping()
     public SaleResponseDTO registerOrder(@RequestBody final SaleRequestDTO request) throws NoValuePresentException {

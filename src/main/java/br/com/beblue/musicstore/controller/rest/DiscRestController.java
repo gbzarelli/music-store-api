@@ -4,6 +4,9 @@ import br.com.beblue.musicstore.controller.DiscController;
 import br.com.beblue.musicstore.controller.dto.DiscDTO;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
 import br.com.beblue.musicstore.service.DiscService;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(DiscRestController.ROOT_PATH)
+@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@Autowired))
 class DiscRestController implements DiscController {
 
     static final String ROOT_PATH = "/disc";
@@ -22,10 +26,6 @@ class DiscRestController implements DiscController {
     static final String PATH_BY_ID = "/{id}";
 
     private final DiscService discService;
-
-    DiscRestController(final DiscService discService) {
-        this.discService = discService;
-    }
 
     @GetMapping(value = PATH_BY_GENRE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<DiscDTO> listDiscsByGenre(@PathVariable final String genre, final Pageable pageable) {
