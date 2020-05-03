@@ -1,6 +1,6 @@
 package br.com.beblue.musicstore.settings.exception;
 
-import br.com.beblue.musicstore.controller.dto.HttpResponseException;
+import br.com.beblue.musicstore.controller.dto.HttpExceptionResponse;
 import br.com.beblue.musicstore.exception.IllegalDateException;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,8 @@ class ProjectExceptionsHandler {
         return ResponseEntity.badRequest().body(createHttpResponse(ex));
     }
 
-    private HttpResponseException createHttpResponse(Exception exception) {
-        HttpResponseException response = new HttpResponseException(exception.getMessage());
+    private HttpExceptionResponse createHttpResponse(Exception exception) {
+        HttpExceptionResponse response = new HttpExceptionResponse(exception.getMessage());
         response.addFieldError(exception.getLocalizedMessage());
         response.addFieldError(exception.toString());
         return response;

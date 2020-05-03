@@ -40,7 +40,7 @@ public class SpotifyAPI {
      */
     public Paging<Track> findTrackByGenre(String genre) throws IOException, SpotifyWebApiException {
         Objects.requireNonNull(genre);
-        SearchTracksRequest request = getCredentials().spotifyApi
+        final var request = getCredentials().spotifyApi
                 .searchTracks(String.format(QUERY_BY_GENRE, genre))
                 .limit(50)
                 .build();

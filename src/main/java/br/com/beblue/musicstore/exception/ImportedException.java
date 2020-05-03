@@ -1,10 +1,10 @@
 package br.com.beblue.musicstore.exception;
 
 public class ImportedException extends Exception {
-    public ImportedException(String message) {
+    public ImportedException(final String message) {
         super(message);
     }
-    public ImportedException(Throwable cause) {
+    public ImportedException(final Throwable cause) {
         super(cause);
     }
 }

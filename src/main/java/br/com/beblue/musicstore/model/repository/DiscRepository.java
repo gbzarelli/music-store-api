@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface DiscRepository extends PagingAndSortingRepository<DiscEntity, Integer> {
-    Page<DiscEntity> findAllByGenreEntityNameIgnoreCaseOrderByName(String name, Pageable pageable);
+    Page<DiscEntity> findAllByGenreEntityNameIgnoreCaseOrderByName(final String name, final Pageable pageable);
 
-    Page<DiscEntity> findAllByOrderByName(Pageable pageable);
+    Page<DiscEntity> findAllByOrderByName(final Pageable pageable);
 
-    List<DiscEntity> findByIdIn(List<Integer> ids);
+    List<DiscEntity> findByIdIn(final List<Integer> ids);
 }

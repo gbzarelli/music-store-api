@@ -1,8 +1,8 @@
 package br.com.beblue.musicstore.service.impl;
 
-import br.com.beblue.musicstore.events.SaleNotifiable;
 import br.com.beblue.musicstore.controller.dto.SaleRequestDTO;
 import br.com.beblue.musicstore.controller.dto.SaleResponseDTO;
+import br.com.beblue.musicstore.events.SaleNotifiable;
 import br.com.beblue.musicstore.exception.NoValuePresentException;
 import br.com.beblue.musicstore.model.entity.DiscEntity;
 import br.com.beblue.musicstore.model.entity.DiscSaleEntity;
@@ -13,12 +13,19 @@ import br.com.beblue.musicstore.model.repository.SaleRepository;
 import br.com.beblue.musicstore.service.CashbackService;
 import br.com.beblue.musicstore.service.SaleService;
 import br.com.beblue.musicstore.util.mapper.SaleMapper;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@Autowired))
 class SaleServiceImpl implements SaleService {
 
     private final SaleRepository saleRepository;
@@ -26,29 +33,18 @@ class SaleServiceImpl implements SaleService {
     private final CashbackService cashbackService;
     private final SaleNotifiable saleNotifiable;
 
-    @Autowired
-    SaleServiceImpl(final SaleRepository saleRepository,
-                    final DiscRepository discRepository,
-                    final CashbackService cashbackService,
-                    final SaleNotifiable saleNotifiable) {
-        this.saleRepository = saleRepository;
-        this.discRepository = discRepository;
-        this.cashbackService = cashbackService;
-        this.saleNotifiable = saleNotifiable;
-    }
-
     public SaleResponseDTO registerOrder(SaleRequestDTO item) throws NoValuePresentException {
 
-        List<DiscEntity> entities = validateAndGetEntities(item);
-        Map<Integer, Integer> cashbackMap = genreCashbackEntitiesToMap(cashbackService.getCashbacks());
+        final var entities = validateAndGetEntities(item);
+        final var cashbackMap = genreCashbackEntitiesToMap(cashbackService.getCashBacks());
 
-        SaleEntity saleEntity = new SaleEntity();
+        final var saleEntity = new SaleEntity();
         saleEntity.setUuid(UUID.randomUUID().toString());
 
         entities.forEach(entity -> {
-            Integer cashback = cashbackMap.get(entity.getGenreEntity().getId());
-            double cashbackPrice = getCashbackPrice(entity.getPrice(), cashback);
-            DiscSaleEntity discSaleEntity = new DiscSaleEntity();
+            final var cashback = cashbackMap.get(entity.getGenreEntity().getId());
+            final var cashbackPrice = getCashbackPrice(entity.getPrice(), cashback);
+            final var discSaleEntity = new DiscSaleEntity();
             discSaleEntity.setSaleEntity(saleEntity);
             discSaleEntity.setCashback(cashback);
             discSaleEntity.setPrice(entity.getPrice());
@@ -84,14 +80,14 @@ class SaleServiceImpl implements SaleService {
     }
 
     private Map<Integer, Integer> genreCashbackEntitiesToMap(List<GenreCashbackEntity> cashbackList) {
-        Map<Integer, Integer> map = new HashMap<>();
+        final var map = new HashMap<Integer, Integer>();
         cashbackList.forEach(item -> map.put(item.getGenreEntity().getId(), item.getCashback()));
         return map;
     }
 
     private List<DiscEntity> validateAndGetEntities(SaleRequestDTO items) throws NoValuePresentException {
         checkInput(items);
-        List<DiscEntity> discEntities = findDiscs(items);
+        final var discEntities = findDiscs(items);
         checkNoPresentIds(items, discEntities);
         return discEntities;
     }
@@ -107,13 +103,9 @@ class SaleServiceImpl implements SaleService {
 
     private void checkNoPresentIds(SaleRequestDTO items, List<DiscEntity> discEntities) throws NoValuePresentException {
         if (items.getDiscsIds().size() == discEntities.size()) return;
-        List<Integer> noPresentValues = new ArrayList<>();
-        discEntities.forEach(discEntity -> {
-            List<Integer> l = items.getDiscsIds();
-            if (l.stream().anyMatch(integer -> integer == discEntity.getId())) {
-                noPresentValues.add(discEntity.getId());
-            }
-        });
+        final var noPresentValues = discEntities.stream()
+                .filter(item -> items.getDiscsIds().stream().anyMatch(id -> id == item.getId()))
+                .collect(Collectors.toList());
         throw new NoValuePresentException("Discs not available: " + noPresentValues.toString());
     }
 }

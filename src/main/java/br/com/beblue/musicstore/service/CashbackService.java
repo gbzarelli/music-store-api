@@ -5,5 +5,5 @@ import br.com.beblue.musicstore.model.entity.GenreCashbackEntity;
 import java.util.List;
 
 public interface CashbackService {
-    List<GenreCashbackEntity> getCashbacks();
+    List<GenreCashbackEntity> getCashBacks();
 }

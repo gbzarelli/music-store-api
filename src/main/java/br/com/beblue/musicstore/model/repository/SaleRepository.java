@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface SaleRepository extends PagingAndSortingRepository<SaleEntity, Integer> {
 
     @Query(value = "select * from " + SaleEntity.TABLE_NAME + " sale where date(sale." + SaleEntity.COLUMN_SALE_DATE_TIME + ") between :start and :end", nativeQuery = true)
-    Page<SaleEntity> findAllBySaleDateTimeBetween(@Param("start") Date start, @Param("end") Date end, Pageable pageable);
+    Page<SaleEntity> findAllBySaleDateTimeBetween(@Param("start") final Date start, @Param("end") final Date end, final Pageable pageable);
 
-    Optional<SaleEntity> findByUuid(String uuid);
+    Optional<SaleEntity> findByUuid(final String uuid);
 }

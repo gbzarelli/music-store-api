@@ -11,9 +11,9 @@ import java.time.LocalDate;
 
 public interface SaleController {
 
-    SaleResponseDTO registerOrder(SaleRequestDTO request) throws NoValuePresentException;
+    SaleResponseDTO registerOrder(final SaleRequestDTO request) throws NoValuePresentException;
 
-    SaleResponseDTO getOrderByOrderNumber(String orderNumber) throws NoValuePresentException;
+    SaleResponseDTO getOrderByOrderNumber(final String orderNumber) throws NoValuePresentException;
 
-    Page<SaleResponseDTO> getOrdersByDateFilter(LocalDate startDate, LocalDate endDate, Pageable pageable) throws IllegalDateException;
+    Page<SaleResponseDTO> getOrdersByDateFilter(final LocalDate startDate, final LocalDate endDate, final Pageable pageable) throws IllegalDateException;
 }

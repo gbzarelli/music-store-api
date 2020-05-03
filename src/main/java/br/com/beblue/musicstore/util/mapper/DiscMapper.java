@@ -17,9 +17,9 @@ public class DiscMapper {
     }
 
     public static DiscEntity trackToDiscEntity(Track track) {
-        DiscEntity discEntity = new DiscEntity();
+        final var discEntity = new DiscEntity();
         discEntity.setName(track.getAlbum().getName());
-        String artists = Arrays.stream(track.getAlbum().getArtists())
+        final var artists = Arrays.stream(track.getAlbum().getArtists())
                 .map(ArtistSimplified::getName)
                 .collect(Collectors.joining(", "));
         discEntity.setArtist(artists);

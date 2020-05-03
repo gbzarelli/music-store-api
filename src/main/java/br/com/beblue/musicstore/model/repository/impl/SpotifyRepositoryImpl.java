@@ -16,11 +16,11 @@ class SpotifyRepositoryImpl implements SpotifyRepository {
     private final SpotifyAPI spotifyAPI;
 
     @Autowired
-    SpotifyRepositoryImpl(SpotifyAPI spotifyAPI) {
+    SpotifyRepositoryImpl(final SpotifyAPI spotifyAPI) {
         this.spotifyAPI = spotifyAPI;
     }
 
-    public Paging<Track> findTrackByGenre(String genre) throws IOException, SpotifyWebApiException {
+    public Paging<Track> findTrackByGenre(final String genre) throws IOException, SpotifyWebApiException {
         return spotifyAPI.findTrackByGenre(genre);
     }
 }

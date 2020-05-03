@@ -25,7 +25,7 @@ class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        long time = System.currentTimeMillis();
+        final var time = System.currentTimeMillis();
         spotifyService.importDiscsByGenres(ImportedException::printStackTrace);
         LOGGER.info("Import time: " + TimeUnit.MILLISECONDS.toSeconds((System.currentTimeMillis() - time)) + "seg");
         LOGGER.info("----Application started----");

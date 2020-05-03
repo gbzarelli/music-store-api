@@ -28,7 +28,7 @@ class SaleAMQNotifiableImpl implements SaleNotifiable {
         this.topicExchange = topicExchange;
     }
 
-    public void notifyNewOrder(String order) throws AmqpException {
+    public void notifyNewOrder(final String order) throws AmqpException {
         rabbitTemplate.convertAndSend(topicExchange.getName(), exchangeRoutingKey, order);
     }
 

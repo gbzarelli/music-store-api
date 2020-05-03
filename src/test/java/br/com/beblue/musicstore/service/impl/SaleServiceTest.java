@@ -66,7 +66,7 @@ class SaleServiceTest {
     void test_register_order_and_check_cashback() throws NoValuePresentException {
         List<Integer> discIds = Arrays.asList(1, 2);
         when(discRepository.findByIdIn(discIds)).thenReturn(getDiscsEntitiesSamples(discIds));
-        when(cashbackService.getCashbacks()).thenReturn(getCashBackListSample());
+        when(cashbackService.getCashBacks()).thenReturn(getCashBackListSample());
         SaleRequestDTO request = new SaleRequestDTO();
         request.setDiscsIds(discIds);
         SaleResponseDTO response = saleService.registerOrder(request);
@@ -80,7 +80,7 @@ class SaleServiceTest {
         List<Integer> discIdsRepo = Arrays.asList(1, 2);
         List<Integer> discIds = Arrays.asList(1, 2, 3);
         when(discRepository.findByIdIn(discIds)).thenReturn(getDiscsEntitiesSamples(discIdsRepo));
-        when(cashbackService.getCashbacks()).thenReturn(getCashBackListSample());
+        when(cashbackService.getCashBacks()).thenReturn(getCashBackListSample());
         SaleRequestDTO request = new SaleRequestDTO();
         request.setDiscsIds(discIds);
         assertThrows(NoValuePresentException.class, () -> saleService.registerOrder(request));

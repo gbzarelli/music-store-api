@@ -12,6 +12,8 @@ import br.com.beblue.musicstore.service.SpotifyImportService;
 import br.com.beblue.musicstore.util.PriceUtil;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.specification.Track;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,23 +27,14 @@ import java.util.concurrent.TimeUnit;
 import static br.com.beblue.musicstore.util.mapper.DiscMapper.trackToDiscEntity;
 
 @Service
+@AllArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@Autowired))
 class SpotifyImportServiceImpl implements SpotifyImportService {
 
     private final GenreRepository genreRepository;
     private final DiscRepository discRepository;
     private final SpotifyRepository spotifyRepository;
 
-    @Autowired
-    SpotifyImportServiceImpl(final DiscRepository discRepository,
-                             final SpotifyRepository spotifyRepository,
-                             final GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
-        this.discRepository = discRepository;
-        this.spotifyRepository = spotifyRepository;
-    }
-
-
-    public void importDiscsByGenres(ImportErrorCallback importErrorCallback) {
+    public void importDiscsByGenres(final ImportErrorCallback importErrorCallback) {
         if (checkAlreadyImported(importErrorCallback)) return;
         try {
             executeImportDiscs(importErrorCallback);
@@ -50,8 +43,9 @@ class SpotifyImportServiceImpl implements SpotifyImportService {
         }
     }
 
-    private boolean checkAlreadyImported(ImportErrorCallback importErrorCallback) {
-        // Poderia ser realizado uma consistencia mais adequada para verificar se os discos já foram importados.
+    private boolean checkAlreadyImported(final ImportErrorCallback importErrorCallback) {
+        // Poderia ser realizado uma consistencia mais adequada para
+        // verificar se os discos já foram importados.
         if (discRepository.count() > 0) {
             importErrorCallback.error(new AlreadyImportedDiscsException());
             return true;
@@ -59,8 +53,9 @@ class SpotifyImportServiceImpl implements SpotifyImportService {
         return false;
     }
 
-    private void executeImportDiscs(ImportErrorCallback importErrorCallback) throws NoGenresException {
-        ExecutorService executorService = createExecutorToImportDiscs();
+    private void executeImportDiscs(final ImportErrorCallback importErrorCallback)
+            throws NoGenresException {
+        final var executorService = createExecutorToImportDiscs();
         genreRepository.findAll().forEach(genre -> executorService.submit(() -> {
             try {
                 importGenre(genre);
@@ -72,8 +67,9 @@ class SpotifyImportServiceImpl implements SpotifyImportService {
         awaitImport(importErrorCallback, executorService);
     }
 
-    private ExecutorService createExecutorToImportDiscs() throws NoGenresException {
-        int value = Long.valueOf(genreRepository.count()).intValue();
+    private ExecutorService createExecutorToImportDiscs()
+            throws NoGenresException {
+        final var value = Long.valueOf(genreRepository.count()).intValue();
         if (value > 0) {
             return Executors.newFixedThreadPool(value);
         } else {
@@ -81,27 +77,32 @@ class SpotifyImportServiceImpl implements SpotifyImportService {
         }
     }
 
-    private void importGenre(GenreEntity genre) throws IOException, SpotifyWebApiException {
+    private void importGenre(final GenreEntity genre)
+            throws IOException, SpotifyWebApiException {
         getFirstsItemsByGenre(genre).parallelStream().forEach(track -> saveDisc(track, genre));
     }
 
-    private List<Track> getFirstsItemsByGenre(GenreEntity genre) throws IOException, SpotifyWebApiException {
+    private List<Track> getFirstsItemsByGenre(final GenreEntity genre)
+            throws IOException, SpotifyWebApiException {
         return Arrays.asList(spotifyRepository.findTrackByGenre(genre.getName()).getItems());
     }
 
-    private void saveDisc(Track track, GenreEntity genreEntity) {
-        DiscEntity discEntity = convertToDisc(track, genreEntity);
+    private void saveDisc(final Track track,
+                          final GenreEntity genreEntity) {
+        final var discEntity = convertToDisc(track, genreEntity);
         discRepository.save(discEntity);
     }
 
-    private DiscEntity convertToDisc(Track track, GenreEntity genreEntity) {
-        DiscEntity discEntity = trackToDiscEntity(track);
+    private DiscEntity convertToDisc(final Track track,
+                                     final GenreEntity genreEntity) {
+        final var discEntity = trackToDiscEntity(track);
         discEntity.setGenreEntity(genreEntity);
         discEntity.setPrice(PriceUtil.generateRandomPriceDisc());
         return discEntity;
     }
 
-    private void awaitImport(ImportErrorCallback importErrorCallback, ExecutorService executorService) {
+    private void awaitImport(final ImportErrorCallback importErrorCallback,
+                             final ExecutorService executorService) {
         try {
             executorService.awaitTermination(2, TimeUnit.MINUTES);
         } catch (InterruptedException in) {

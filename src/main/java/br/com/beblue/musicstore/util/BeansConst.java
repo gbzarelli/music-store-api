@@ -1,9 +1,9 @@
 package br.com.beblue.musicstore.util;
 
-public class BeansConst {
-    private BeansConst() {
-    }
+import lombok.experimental.UtilityClass;
 
-    public static final String BEAN_SALE_QUEUE = "saleQueue";
-    public static final String BEAN_SALE_EXCHANGE = "saleExchange";
+@UtilityClass
+public class BeansConst {
+    public final String BEAN_SALE_QUEUE = "saleQueue";
+    public final String BEAN_SALE_EXCHANGE = "saleExchange";
 }

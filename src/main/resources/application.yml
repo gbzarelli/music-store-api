@@ -18,8 +18,8 @@ application:
 
 spotify:
   client:
-    id: 1228515c3a654087b2a33907226e09e9
-    secret: c370e93002bc43fbaf64a6f2c582d086
+    id: ${SPOTFY_ID:}
+    secret: ${SPOTFY_SECRET:}
 
 # Server Properties
 

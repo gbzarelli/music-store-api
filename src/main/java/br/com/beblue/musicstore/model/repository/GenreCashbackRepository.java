@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface GenreCashbackRepository extends CrudRepository<GenreCashbackEntity, Integer> {
-    GenreCashbackEntity findByGenreEntityIdAndWeekdayAndEnableTrue(int genreId, int weekday);
+    GenreCashbackEntity findByGenreEntityIdAndWeekdayAndEnableTrue(final int genreId,final  int weekday);
 
-    List<GenreCashbackEntity> findByWeekdayAndEnableTrue(int weekday);
+    List<GenreCashbackEntity> findByWeekdayAndEnableTrue(final int weekday);
 
 }

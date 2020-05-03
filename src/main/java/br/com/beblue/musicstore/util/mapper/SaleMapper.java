@@ -9,7 +9,7 @@ public class SaleMapper {
     }
 
     public static SaleResponseDTO saleEntityToSaleResponseDTO(SaleEntity entity) {
-        SaleResponseDTO response = new SaleResponseDTO();
+        final var response = new SaleResponseDTO();
         response.setOrderNumber(entity.getUuid());
         response.setCashbackPrice(entity.getCashback_price());
         response.setTotalPrice(entity.getTotal_price());

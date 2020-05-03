@@ -15,13 +15,13 @@ class Credentials {
     SpotifyApi spotifyApi;
     private ClientCredentials clientCredentials;
 
-    private Credentials(String clientId, String clientSecret) {
+    private Credentials(final String clientId, final String clientSecret) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
 
     static Credentials loadCredentials(String clientId, String clientSecret) throws SpotifyWebApiException, IOException {
-        Credentials credentials = new Credentials(clientId, clientSecret);
+        final var credentials = new Credentials(clientId, clientSecret);
         credentials.spotifyApi = credentials.getSpotifyApi();
         credentials.clientCredentials = credentials.getClientCredentialsRequest().execute();
         credentials.spotifyApi.setAccessToken(credentials.clientCredentials.getAccessToken());

@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 
 public interface DiscController {
 
-    Page<DiscDTO> listDiscsByGenre(String genre, Pageable pageable);
+    Page<DiscDTO> listDiscsByGenre(final String genre, final Pageable pageable);
 
-    Page<DiscDTO> listDiscs(Pageable pageable);
+    Page<DiscDTO> listDiscs(final Pageable pageable);
 
-    DiscDTO getDiscByID(Integer id) throws NoValuePresentException;
+    DiscDTO getDiscByID(final Integer id) throws NoValuePresentException;
 
 }
