@@ -1,14 +1,16 @@
 package br.com.beblue.musicstore.util;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@UtilityClass
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResourceConst {
-    public final String ACTIVE_PROFILES_TEST_VALUE = "test";
-    public final String KEY_SPOTIFY_CLIENT_ID = "${spotify.client.id}";
-    public final String KEY_SPOTIFY_CLIENT_SECRET = "${spotify.client.secret}";
-    public final String KEY_APPLICATION_ENV = "${application.environment}";
-    public final String KEY_APPLICATION_MQ_SALE_QUEUE_NAME = "${application.mq.sale.queue.name}";
-    public final String KEY_APPLICATION_MQ_SALE_EXCHANGE_NAME = "${application.mq.sale.exchange.name}";
-    public final String KEY_APPLICATION_MQ_SALE_ROUTING_KEY = "${application.mq.sale.exchange.routing-key}";
+    public static final String ACTIVE_PROFILES_TEST_VALUE = "test";
+    public static final String KEY_SPOTIFY_CLIENT_ID = "${spotify.client.id}";
+    public static final String KEY_SPOTIFY_CLIENT_SECRET = "${spotify.client.secret}";
+    public static final String KEY_APPLICATION_ENV = "${application.environment}";
+    public static final String KEY_APPLICATION_MQ_SALE_QUEUE_NAME = "${application.mq.sale.queue.name}";
+    public static final String KEY_APPLICATION_MQ_SALE_EXCHANGE_NAME = "${application.mq.sale.exchange.name}";
+    public static final String KEY_APPLICATION_MQ_SALE_ROUTING_KEY = "${application.mq.sale.exchange.routing-key}";
 }

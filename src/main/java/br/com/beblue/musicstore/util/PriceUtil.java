@@ -1,12 +1,14 @@
 package br.com.beblue.musicstore.util;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
-@UtilityClass
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PriceUtil {
-    public Double generateRandomPriceDisc() {
+    public static Double generateRandomPriceDisc() {
         int rangeMin = 10;
         int rangeMax = 100;
         return rangeMin + (rangeMax - rangeMin) * new Random(System.nanoTime()).nextDouble();

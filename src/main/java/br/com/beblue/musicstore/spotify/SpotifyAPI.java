@@ -3,7 +3,6 @@ package br.com.beblue.musicstore.spotify;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.specification.Paging;
 import com.wrapper.spotify.model_objects.specification.Track;
-import com.wrapper.spotify.requests.data.search.simplified.SearchTracksRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

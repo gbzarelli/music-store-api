@@ -28,6 +28,7 @@
         <jaxb-api-version>2.3.1</jaxb-api-version>
         <coveralls-maven-plugin-version>4.3.0</coveralls-maven-plugin-version>
         <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+        <lombok.version>1.18.12</lombok.version>
     </properties>
 
     <dependencies>
@@ -68,6 +69,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
         </dependency>
         <!--
            Web API Wrapper (https://developer.spotify.com/documentation/web-api/libraries/):

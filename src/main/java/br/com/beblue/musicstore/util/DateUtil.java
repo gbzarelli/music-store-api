@@ -1,12 +1,14 @@
 package br.com.beblue.musicstore.util;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Calendar;
 
-@UtilityClass
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateUtil {
-    public int getDayOfWeek() {
+    public static int getDayOfWeek() {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
 }
