@@ -8,7 +8,7 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>br.com.beblue</groupId>
+    <groupId>br.com.helpdev</groupId>
     <artifactId>music-store-api</artifactId>
     <version>1.3.0</version>
 
@@ -18,7 +18,7 @@
     <properties>
         <java.version>13</java.version>
 
-        <docker.repository>beblue</docker.repository>
+        <docker.repository>helpdev</docker.repository>
         <docker.version>1.4.9</docker.version>
         <spotify.web-api.version>2.1.2</spotify.web-api.version>
         <flyway.version>5.2.4</flyway.version>
