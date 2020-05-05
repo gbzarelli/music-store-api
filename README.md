@@ -6,79 +6,90 @@
 
 # Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
 
- O `Music Store API` trata-se de uma API para consultas e vendas de discos, 
- sua base de dados é alimentada pela API do `Spotify` na inicialização do sistema,
- cada disco tem um valor randômico entre 10 e 100 e está associado a uma das
- quatro categorias pré definidas no sistema (POP, MPB, CLASSICA e ROCK), 
- na venda do disco será gerado um cashback de acordo com o dia da semana e o genêro de cada disco, 
- esses valores também estão pré definidos de acordo com as especificações do sistema.
+<p align="center">
+    <img src="./images/music-store-logo.png" height="350">
+</p>
 
-## Especificações
+The `Music Store API` is an API for inquiries and disco sales,
+your database will be powered by the `Spotify` API at system startup,
+each disc has a random value between 10 and 100 and is associated with
+one of the four pre-defined categories in the system (POP, MPB, CLASSIC and ROCK),
+on the sale of the disk a cashback will be created according to the day of the week and the genre
+of each disc, these values are also pre-defined according to the system specifications. 
+
+## Specifications
  
- O serviço deverá disponibilizar uma API REST contendo as seguintes operações:
+ The app should provide a `REST API` containing the following operations::
  
- - Consultar o catálogo de discos de forma paginada, filtrando por gênero e ordenando de forma crescente pelo nome do disco;
- - Consultar o disco pelo seu identificador;
- - Consultar todas as vendas efetuadas de forma paginada, filtrando pelo range de datas (inicial e final) da venda e ordenando de forma decrescente pela data da venda;
- - Consultar uma venda pelo seu identificador;
- - Registrar uma nova venda de discos calculando o valor total de cashback considerando a tabela.
+- Consult the disc catalog in paginated way, filtering by the genre and shorting in an increasing 
+order by the name of the disc;
+- Consult the disc by its identifier;
+- Consult all sales made in paginated way, filtering by the range of dates (initial and final) of 
+the sale and ordering in decreasing order by the date of the sale;
+- Consult a sale by its identifier;
+- Register a new disc sale  with the total cashback value considering the table;
  
- - O serviço será alimentado pela base de dados do `spotfy` [`web-api`](https://developer.spotify.com/documentation/web-api/quick-start/)
- - Cada venda poderá ter 1 ou mais discos selecionados, o cashback deverá ser calculado e armazenado individualmente para cada disco bem como o cashback total da venda.
+ - The app will be powered by the `Spotify` database: [`web-api`](https://developer.spotify.com/documentation/web-api/quick-start/)
+ - Each sale may have one or more discs selected, the cashback must be calculated and stored 
+ individually for each disc as well as the total cashback of the sale;
  
- Extra:
+ - When registering a sale, the `API` must send a message to a messaging service passing the
+ unique number of the sale
  
- - Ao registrar uma venda, a API deve enviar uma mensagem a um serviço de mensageria passando o número único da venda. 
+## Technologies
 
-## Tecnologias
+ - [`Java/OpenJDK 13`](https://openjdk.java.net/projects/jdk/13/) - Java Development Kit 13
+ - [`Spring boot`](https://spring.io) - Framework base for the API
+ - [`Flyway`](https://flywaydb.org) - Version control and migration for database
+ - [`MySQL`](https://www.mysql.com) - Database
+ - [`H2`](https://www.h2database.com) - Database for tests
+ - [`Swagger`](https://swagger.io) - Dynamics API documentation
+ - [`JPA/Hibernate`](https://hibernate.org/orm/) - Framework for data persistence / ORM
+ - [`Docker`](https://www.docker.com) - Run and manage applications inside containers called containers
+ - [`RabbitMQ`](https://www.rabbitmq.com) - RabbitMQ messaging service
+ - [`jUnit5 e Mockito`](https://junit.org/junit5/) - Tests execution
 
- - [`Spring boot`](https://spring.io) - Framework base para a API
- - [`Flyway`](https://flywaydb.org) - Controle de versão e migração para banco de dados
- - [`MySQL`](https://www.mysql.com) - Banco de dados
- - [`H2`](https://www.h2database.com) - Banco de dados para os testes
- - [`Swagger`](https://swagger.io) - Documentação de API de forma dinâmica
- - [`JPA/Hibernate`](https://hibernate.org/orm/) - Framework para persistencia de dados / ORM
- - [`Docker`](https://www.docker.com) - Executa e gerencia aplicações dentro de invólucros chamados containers
- - [`RabbitMQ`](https://www.rabbitmq.com) - RabbitMQ é um servidor de mensageria
- - [`jUnit5 e Mockito`](https://junit.org/junit5/) - Execução de testes
+## Executing with Docker in develop environment
 
-## Executando com Docker em ambiente de desenvolvimento
+The following steps have been documented to performed on a Linux platform,
+but the commands with the Windows system can be similar, but, the operation isn't
+fully guaranteed. Make sure you have installed in your environment the `Java` 
+(with the $JAVA_HOME in your classpath properly configured) and the `Maven`.
 
- Os seguintes passos foram documentados para serem executados em uma plataforna
- Linux, porém os comandos com o sistema Windows podem ser semelhantes, mas,
- o funcionamento não é totalmente garantido. Certifique-se que tenha instalado
- em seu ambiente o `Java` (com o JAVA_HOME no classpath devidamente configurado)
- e o `Maven`
-
-- Efetue o clone do projeto:
+- Clone the project
 
 ```shell
 $ git clone https://github.com/gbzarelli/music-store-api.git
 ```
 
-- Acesse a pasta do projeto para iniciarmos a compilação e execução do sistema:
+- Access the project folder to start compiling and running the app
 
 ```shell
 $ cd ./music-store-api
 ```
 
-- A instrução a seguir executará atravéz do [`Maven`](https://maven.apache.org) 
-o `clean` do projeto, logo após o `package`, que executará os testes unitários 
-para garantir a integridade do projeto e para gerar nosso `.jar`, por ultimo 
-será realizado o build do [`Dockerfile`](./Dockerfile) gerando uma imagem 
-no repositório local denominada de `beblue/music-store-api`. 
-Para a realização do build foi utilizado o plugin 
+- The following instruction will be executed via [`Maven`](https://maven.apache.org)
+the `clean` of the project, right after the `package`, which will perform the 
+unit tests to guarantee the integrity of the project and to generate our `.jar`,
+lastly build [`Dockerfile`](./Dockerfile) will be generated an image
+in the local repository called `beblue/music-store-api`. To build the plugin 
 [`dockerfile-maven-plugin`](https://github.com/spotify/docker-maven-plugin) 
-configurado no [`pom.xml`](./pom.xml) do projeto.
+ has been configured in the [`pom.xml`](./pom.xml);
 
 ```shell
 $ mvn clean package dockerfile:build
 ```
 
-- Após ter gerado a imagem da API atravéz do `dockerfile:build` iremos 
-montar os containers pelo [`docker-compose`](./docker-compose.yml). 
-O compose preparado deixará configurado uma container para o 
-banco de dados `MySQL` e para o `music-store-api`:
+- Configure the following ENVs to `Spotify` access:
+
+| ENV | Description |
+| -- | -- |
+| SPOTFY_ID | The Spotify credentials ID |
+| SPOTFY_SECRET | The Spotify credential secret key |
+
+- After the image will be generated through the `dockerfile:build` we will
+mount the containers by [`docker-compose`](./docker-compose.yml).
+The prepared compose will go up to the `API`;
 
 ```shell
 $ docker-compose up
@@ -92,33 +103,33 @@ $ docker-compose up
  
    GET http://{address}:8080
  
-#### Gênero
+#### Genres
 
- - Lista de gêneros 
+ - Genre List 
   
-   GET http://{address}:8080/genre
+        GET http://{address}:8080/genre
 
-#### Discos
+#### Discs
 
- - Consulta de disco por ID
+- Search disc by ID
  
-   GET http://{address}:8080/disc/{id}
+        GET http://{address}:8080/disc/{id}
   
- - Consulta de discos (com paginação)
+- Search discs (with pagination)
  
-   GET http://{address}:8080/disc{?page=1&limit=50}
+        GET http://{address}:8080/disc{?page=1&limit=50}
  
- - Consulta de discos por genero (com paginação)
+- Search disc by a genre (with pagination)
  
-   GET http://{address}:8080/disc/genre/{genre}{?page=1&limit=50}
+        GET http://{address}:8080/disc/genre/{genre}{?page=1&limit=50}
  
-- Obs: [`Parametros de paginação`](https://docs.spring.io/spring-data/rest/docs/2.0.0.M1/reference/html/paging-chapter.html)
+- Note: [`Pagination parameters`](https://docs.spring.io/spring-data/rest/docs/2.0.0.M1/reference/html/paging-chapter.html)
 
-#### Vendas
+#### Sales
 
- - Inserção de venda
+- New Sale
  
-   POST http://{address}:8080/sale
+        POST http://{address}::8080/sale
 
    BODY: 
    ```json
@@ -127,20 +138,19 @@ $ docker-compose up
    }
    ```
     
- - Consulta de venda por número da compra
+- Search sale by purchase number
   
-   GET http://{address}:8080/sale/{orderNumber}
+        GET http://{address}:8080/sale/{orderNumber}
    
- - Consulta de vendas por data
+- Search sales by date
   
-   GET http://{address}:8080/sale/start_date/{dataInicio}/end_date/{dataFim}{?page=1&limit=50}
+        GET http://{address}:8080/sale/start_date/{startDate}/end_date/{endDate}{?page=1&limit=50}
    
-   Obs: Formato de data aceito: 'yyyy-MM-dd' ex: `2019-05-23`
+Note: Accepted data format: 'yyyy-MM-dd' ex: `2019-05-23`
  
- 
-## Documentação dinâmica com o Swagger
+## The Dynamic documentation with Swagger
 
-A `Swagger` UI fornece uma estrutura de exibição que é capaz de interpretar
-os endpoints do projeto e gera um site de documentação interativa
+The `Swagger` UI provide a display structure who is able to interpret
+project endpoints and generate an interactive documentation site;
 
-  http://{address}:8080/swagger-ui.html
+  - http://{address}:8080/swagger-ui.html
