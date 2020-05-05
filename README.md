@@ -7,7 +7,7 @@
 # Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
 
 <p align="center">
-    <img src="./images/music-store-logo.png" height="150">
+    <img src="./images/music-store-logo.png" height="350">
 </p>
 
 The `Music Store API` is an API for inquiries and disco sales,
