@@ -72,7 +72,7 @@ $ cd ./music-store-api
 the `clean` of the project, right after the `package`, which will perform the 
 unit tests to guarantee the integrity of the project and to generate our `.jar`,
 lastly build [`Dockerfile`](./Dockerfile) will be generated an image
-in the local repository called `beblue/music-store-api`. To build the plugin 
+in the local repository called `helpdev/music-store-api`. To build the plugin 
 [`dockerfile-maven-plugin`](https://github.com/spotify/docker-maven-plugin) 
  has been configured in the [`pom.xml`](./pom.xml);
 

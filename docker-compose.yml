@@ -29,7 +29,7 @@ services:
       - musicstore-network
 
   music-store:
-    image: beblue/music-store-api
+    image: helpdev/music-store-api
     container_name: music-store-api
     restart: always
     volumes:
