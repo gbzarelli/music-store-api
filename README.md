@@ -2,6 +2,7 @@
 ![Forks](https://img.shields.io/github/forks/gbzarelli/music-store-api.svg) 
 ![Stars](https://img.shields.io/github/stars/gbzarelli/music-store-api.svg) 
 ![Release Version](https://img.shields.io/github/release/gbzarelli/music-store-api.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1bc201b52c9e4c4eb162f73937ba331d)](https://app.codacy.com/manual/gbzarelli/music-store-api?utm_source=github.com&utm_medium=referral&utm_content=gbzarelli/music-store-api&utm_campaign=Badge_Grade_Dashboard)
 [![Coverage Status](https://coveralls.io/repos/github/gbzarelli/music-store-api/badge.svg?branch=master)](https://coveralls.io/github/gbzarelli/music-store-api?branch=master)
 
 # Music Store API [![CircleCI](https://circleci.com/gh/gbzarelli/music-store-api.svg?style=svg)](https://circleci.com/gh/gbzarelli/music-store-api)
